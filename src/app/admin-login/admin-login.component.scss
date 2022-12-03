@@ -31,6 +31,11 @@
     box-shadow: 0px 5px 10px rgba(160, 163, 189, 0.1);
     border-radius: 10px;
     padding: 30px;
+    .error {
+      color: #FF0000;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
     form {
       margin-top: 30px;
       label {
@@ -48,7 +53,7 @@
         padding: 10px;
         border: 1px solid #ddd;
         border-radius: 5px;
-        margin-bottom: 10px;
+        margin-bottom: 0px;
         background: #EFF0F6;
         border: none;
         &::placeholder {
@@ -93,6 +98,14 @@
         color: #fff;
         font-weight: bold;
         cursor: pointer;
+        transition: all 0.3s ease;
+        &:hover {
+          background-color: #4d90fe;
+        }
+        &:disabled {
+          background-color: #a5a5a5;
+          cursor: not-allowed;
+        }
       }
     }
   }
