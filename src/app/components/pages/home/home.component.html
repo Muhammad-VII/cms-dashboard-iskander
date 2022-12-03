@@ -3,15 +3,16 @@
 </header>
 
 <article>
-  <div class="section-group">
+  <div class="section-group" *ngFor="let content of pageData">
     <div class="d-flex justify-content-between align-items-center">
       <div class="section">
-        <h3>Header</h3>
+        <h3>{{content.title}}</h3>
       </div>
       <div class="d-flex gap-3 align-items-center">
         <div class="d-flex align-items-center">
           <label>Published</label>
-          <nz-switch [(ngModel)]="switchValue" [nzControl]="true" (click)="publish()" [nzLoading]="loading"></nz-switch>
+          <nz-switch [(ngModel)]="!content.hidden" [nzControl]="true" (click)="publish()" [nzLoading]="loading">
+          </nz-switch>
         </div>
 
         <div>
@@ -24,24 +25,22 @@
 
     <div class="section-group-content">
       <div class="row">
-        <div class="col-md-9">
-          <h4>Iskander - LBC</h4>
-          <p>Begleitet und unterstützt die Unternehmen sowohl in Deutschland als auch in Ägypten bei Firmengründung, Steuerangelegenheiten und suchen nach geeigneten Kooperationspartner</p>
+        <div [class.col-md-12]="content.media.length > 0" [class.col-md-9]="content.media.length <= 0">
+          <h4>{{content.title}}</h4>
+          <p *ngIf="content.subTitle != ''">{{content.subTitle}}</p>
+          <p *ngIf="content.extraTitle != ''">{{content.extraTitle}}</p>
+          <p *ngIf="content.description != ''">{{content.description}}</p>
+          <div class="media-row" *ngIf="content.media.length != 0">
+            <div class="row">
+              <div class="col-md-4" *ngFor="let media of content.media">
+                <img class="w-100 mb-2" [src]="media.image" alt="" srcset="">
+                <p>{{media.title}}</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-3">
-         <img src="assets/icons/test.png" class="w-100" alt="" srcset="">
-        </div>
-      </div>
-    </div>
-
-    <div class="section-group-content">
-      <div class="row">
-        <div class="col-md-9">
-          <h4>Iskander - LBC</h4>
-          <p>Begleitet und unterstützt die Unternehmen sowohl in Deutschland als auch in Ägypten bei Firmengründung, Steuerangelegenheiten und suchen nach geeigneten Kooperationspartner</p>
-        </div>
-        <div class="col-md-3">
-         <img src="assets/icons/test.png" class="w-100" alt="" srcset="">
+        <div class="col-md-3" [hidden]="content.media.length > 0">
+          <img src="{{content.image}}" class="w-100" alt="" srcset="">
         </div>
       </div>
     </div>
