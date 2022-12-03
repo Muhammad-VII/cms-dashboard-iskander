@@ -14,13 +14,23 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { HomeComponent } from './components/pages/home/home.component';
+import { WasWirSindComponent } from './components/pages/was-wir-sind/was-wir-sind.component';
+import { WasWirTunComponent } from './components/pages/was-wir-tun/was-wir-tun.component';
+import { KontaktComponent } from './components/pages/kontakt/kontakt.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLoginComponent,
     DashboardComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    HomeComponent,
+    WasWirSindComponent,
+    WasWirTunComponent,
+    KontaktComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +43,9 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     HttpClientModule,
     MatCheckboxModule,
     NgxSpinnerModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NzLayoutModule,
+    NzMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
