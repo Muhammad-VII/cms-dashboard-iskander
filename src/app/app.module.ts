@@ -20,6 +20,7 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { WasWirSindComponent } from './components/pages/was-wir-sind/was-wir-sind.component';
 import { WasWirTunComponent } from './components/pages/was-wir-tun/was-wir-tun.component';
 import { KontaktComponent } from './components/pages/kontakt/kontakt.component';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { KontaktComponent } from './components/pages/kontakt/kontakt.component';
     ToastrModule.forRoot(),
     NzLayoutModule,
     NzMenuModule,
+    NzSwitchModule
   ],
   providers: [],
   bootstrap: [AppComponent]
