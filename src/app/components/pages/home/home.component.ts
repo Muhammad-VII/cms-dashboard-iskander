@@ -1,3 +1,4 @@
+import { FormGroup, FormControl } from '@angular/forms';
 import { DashboardService } from './../../../services/dashboard.service';
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnDestroy } from '@angular/core';
@@ -14,6 +15,16 @@ export class HomeComponent implements OnDestroy {
   switchValue = false;
   loading = false;
   pageData: any;
+  editForm:FormGroup = new FormGroup({
+    title: new FormControl(''),
+    subTitle: new FormControl(''),
+    extraTitle: new FormControl(''),
+    description: new FormControl(''),
+    image: new FormControl(''),
+    media: new FormControl(''),
+    hidden: new FormControl(''),
+    dir: new FormControl(''),
+  })
   constructor(
     private _AuthService: AuthService,
     private _DashboardService: DashboardService,
