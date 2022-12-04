@@ -36,14 +36,30 @@ export class HomeComponent implements OnDestroy {
     );
   }
 
-  publish(): void {
-    if (!this.loading) {
-      this.loading = true;
-      setTimeout(() => {
-        this.switchValue = !this.switchValue;
-        this.loading = false;
-      }, 3000);
-    }
+  publish(obj: any, publishState: boolean): void {
+    this._NgxSpinnerService.show();
+    this._DashboardService
+      .update(obj._id, {
+        title: obj.title,
+        subTitle: obj.subTitle,
+        extraTitle: obj.extraTitle,
+        description: obj.description,
+        image: obj.image,
+        media: obj.media,
+        hidden: publishState,
+        dir: obj.dir,
+      })
+      .subscribe({
+        next: (res) => {
+          this._NgxSpinnerService.hide();
+          this.pageData = res.data;
+          this._ToastrService.success('The section has been updated');
+        },
+        error: (err) => {
+          this._NgxSpinnerService.hide();
+          this._ToastrService.error('An error has occured');
+        }
+      });
   }
 
   ngOnDestroy(): void {

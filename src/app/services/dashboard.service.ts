@@ -4,17 +4,34 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DashboardService {
-
-  constructor(private _HttpClient: HttpClient, private _AuthService: AuthService) { }
+  constructor(
+    private _HttpClient: HttpClient,
+    private _AuthService: AuthService
+  ) {}
 
   getHomePage(): Observable<any> {
-    return this._HttpClient.get(`http://localhost:3000/home/getAllSections?limit=10&skip=0`, {
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem('token')!}`
+    return this._HttpClient.get(
+      `http://localhost:3000/home/getAllSections?limit=10&skip=0`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')!}`,
+        },
       }
-    })
+    );
+  }
+
+  update(id: string, data: any): Observable<any> {
+    return this._HttpClient.patch(
+      `http://localhost:3000/home/updateSectionById/${id}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')!}`,
+        },
+      }
+    );
   }
 }

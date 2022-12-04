@@ -6,13 +6,21 @@
             [(nzCollapsed)]="isCollapsed"
             [nzTrigger]="null">
     <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
-        <img src="../../../assets/icons/favicon.ico" alt="logo">
+      <a>
+        <img src="assets/icons/favicon.ico" alt="logo">
         <h1>ISKANDER-LBC</h1>
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Pages" nzIcon="dashboard">
+      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="home">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/dashboard">Dashboard</a>
+          </li>
+        </ul>
+      </li>
+      
+      <li nz-submenu nzOpen nzTitle="Pages" nzIcon="file-jpg">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/dashboard/home">Home</a>
@@ -28,7 +36,8 @@
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="Messages" nzIcon="form">
+
+      <li nz-submenu nzOpen nzTitle="Messages" nzIcon="mail">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a>Messages</a>
@@ -36,7 +45,7 @@
         </ul>
       </li>
 
-      <li nz-submenu nzOpen nzTitle="Settings" nzIcon="form">
+      <li nz-submenu nzOpen nzTitle="Settings" nzIcon="setting">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a>Edit profile</a>
@@ -49,8 +58,11 @@
     <nz-header>
       <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-            <i class="trigger">{{'Close' ? isCollapsed : 'Open'}}</i>
-        </span>
+          <i class="trigger"
+              nz-icon
+              [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+          ></i>
+      </span>
       </div>
     </nz-header>
     <nz-content>

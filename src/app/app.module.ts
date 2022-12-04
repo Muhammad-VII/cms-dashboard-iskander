@@ -21,6 +21,7 @@ import { WasWirSindComponent } from './components/pages/was-wir-sind/was-wir-sin
 import { WasWirTunComponent } from './components/pages/was-wir-tun/was-wir-tun.component';
 import { KontaktComponent } from './components/pages/kontakt/kontakt.component';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { IconsProviderModule } from './icons-provider.module';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
     ToastrModule.forRoot(),
     NzLayoutModule,
     NzMenuModule,
-    NzSwitchModule
+    NzSwitchModule,
+    IconsProviderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
