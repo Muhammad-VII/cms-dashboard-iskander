@@ -18,7 +18,7 @@
 
         <div>
           <button class="border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#exampleModal"
-            [attr.data-bs-target]="'#'+'ed'+content._id" (click)="patchValuesToEditForm(content)">
+            [attr.data-bs-target]="'#'+'ed'+content._id" data- (click)="patchValuesToEditForm(content)">
             <img src="assets/icons/edit.png" alt="" srcset="">
           </button>
         </div>
@@ -47,7 +47,7 @@
       </div>
     </div>
 
-    <div *ngFor="let content of pageData; let i = index" class="modal fade" [id]="'ed'+content._id" tabindex="-1"
+    <div data-bs-backdrop="static" data-bs-keyboard="false" *ngFor="let content of pageData; let i = index" class="modal fade" [id]="'ed'+content._id" tabindex="-1"
       aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -81,8 +81,8 @@
                 <label for="inputAddress2" class="form-label">Image</label>
                 <input (change)="uploadimage($event)" type="file" class="form-control">
               </div>
-              
-              <div class="col-12" *ngIf="content.media.length == 0">
+              <!--TODO-->
+              <div class="col-12" *ngIf="content.media.length != 0">
                 <label for="inputAddress2" class="form-label">Media</label>
                 <input type="file" class="form-control">
                 <input type="file" class="form-control my-2">
