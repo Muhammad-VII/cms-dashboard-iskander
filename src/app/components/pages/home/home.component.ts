@@ -1,4 +1,4 @@
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DashboardService } from './../../../services/dashboard.service';
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnDestroy } from '@angular/core';
@@ -16,7 +16,7 @@ export class HomeComponent implements OnDestroy {
   loading = false;
   pageData: any;
   editForm:FormGroup = new FormGroup({
-    title: new FormControl(''),
+    title: new FormControl('', [Validators.required]),
     subTitle: new FormControl(''),
     extraTitle: new FormControl(''),
     description: new FormControl(''),
@@ -31,6 +31,7 @@ export class HomeComponent implements OnDestroy {
     private _NgxSpinnerService: NgxSpinnerService,
     private _ToastrService: ToastrService
   ) {
+    this.editForm.valueChanges.subscribe(console.log)
     this._NgxSpinnerService.show();
     this.subscribtions.push(
       this._DashboardService.getHomePage().subscribe({
@@ -71,6 +72,19 @@ export class HomeComponent implements OnDestroy {
           this._ToastrService.error('An error has occured');
         }
       });
+  }
+
+  patchValuesToEditForm(obj:any){
+    this.editForm.patchValue({
+      title: obj.title,
+      subTitle: obj.subTitle,
+      extraTitle: obj.extraTitle,
+      description: obj.description,
+      image: obj.image,
+      media: obj.media,
+      hidden: obj.hidden,
+      dir: obj.dir,
+    })
   }
 
   ngOnDestroy(): void {
