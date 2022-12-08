@@ -5,6 +5,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+declare const $: any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -16,6 +17,7 @@ export class HomeComponent implements OnDestroy {
   loading = false;
   pageData: any;
   editForm:FormGroup = new FormGroup({
+    _id: new FormControl(''),
     title: new FormControl('', [Validators.required]),
     subTitle: new FormControl(''),
     extraTitle: new FormControl(''),
@@ -76,6 +78,7 @@ export class HomeComponent implements OnDestroy {
 
   patchValuesToEditForm(obj:any){
     this.editForm.patchValue({
+      _id: obj._id,
       title: obj.title,
       subTitle: obj.subTitle,
       extraTitle: obj.extraTitle,
@@ -85,6 +88,46 @@ export class HomeComponent implements OnDestroy {
       hidden: obj.hidden,
       dir: obj.dir,
     })
+  }
+
+  uploadimage(event: any) {
+    this._DashboardService.uploadImage(event.target.files[0], `images/home/${event.target.files[0].name}`).subscribe({
+      next: (val) => {
+        this.editForm.patchValue({
+          image: val
+        })
+      }, 
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+
+  submitEditForm(){
+    this._NgxSpinnerService.show();
+    this._DashboardService
+      .update(this.editForm.value._id, {
+        title: this.editForm.value.title,
+        subTitle: this.editForm.value.subTitle,
+        extraTitle: this.editForm.value.extraTitle,
+        description: this.editForm.value.description,
+        image: this.editForm.value.image,
+        media: this.editForm.value.media,
+        hidden: this.editForm.value.hidden,
+        dir: this.editForm.value.dir,
+      })
+      .subscribe({
+        next: (res) => {
+          window.location.reload();
+          this._NgxSpinnerService.hide();
+          this._ToastrService.success('The section has been updated');
+          $('#editModal').modal('hide');
+        },
+        error: (err) => {
+          this._NgxSpinnerService.hide();
+          this._ToastrService.error('An error has occured');
+        }
+      });
   }
 
   ngOnDestroy(): void {

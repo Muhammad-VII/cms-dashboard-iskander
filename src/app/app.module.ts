@@ -6,10 +6,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -22,6 +22,10 @@ import { WasWirTunComponent } from './components/pages/was-wir-tun/was-wir-tun.c
 import { KontaktComponent } from './components/pages/kontakt/kontakt.component';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { IconsProviderModule } from './icons-provider.module';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,7 @@ import { IconsProviderModule } from './icons-provider.module';
     HomeComponent,
     WasWirSindComponent,
     WasWirTunComponent,
-    KontaktComponent
+    KontaktComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,9 +53,22 @@ import { IconsProviderModule } from './icons-provider.module';
     NzLayoutModule,
     NzMenuModule,
     NzSwitchModule,
-    IconsProviderModule
+    IconsProviderModule,
+    provideFirebaseApp(() =>
+      initializeApp({
+        apiKey: "AIzaSyAGaI-Gp12knpehMQ2wGARTR2ILCOGYokw",
+        authDomain: "cms-dashboard-34e75.firebaseapp.com",
+        projectId: "cms-dashboard-34e75",
+        storageBucket: "cms-dashboard-34e75.appspot.com",
+        messagingSenderId: "343984265053",
+        appId: "1:343984265053:web:f799aeae3181b189ab3ab4"
+      })
+    ),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
