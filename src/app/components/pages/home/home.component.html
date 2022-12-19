@@ -74,14 +74,13 @@
 
               <div class="col-12">
                 <label for="inputAddress" class="form-label">Description</label>
-                <input type="text" class="form-control" class="form-control" formControlName="description">
+                <textarea type="text" class="form-control" class="form-control" formControlName="description" rows="4"></textarea>
               </div>
 
-              <div class="col-12">
+              <div class="col-12" *ngIf="content.media.length == 0">
                 <label for="inputAddress2" class="form-label">Image</label>
                 <input (change)="uploadimage($event)" type="file" class="form-control">
               </div>
-              <!--TODO-->
               <div class="col-12" *ngIf="content.media.length != 0">
                 <label for="inputAddress2" class="form-label">Media</label>
                 <input type="file" class="form-control">
