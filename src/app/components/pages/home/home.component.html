@@ -6,7 +6,7 @@
   <div class="section-group" *ngFor="let content of pageData; let i = index">
     <div class="d-flex justify-content-between align-items-center">
       <div class="section">
-        <h3>{{content.title}}</h3>
+        <h3 class="text-muted">Section name: {{content.title}}</h3>
       </div>
       <div class="d-flex gap-3 align-items-center">
         <div class="d-flex align-items-center">
@@ -28,10 +28,10 @@
     <div class="section-group-content">
       <div class="row">
         <div [class.col-md-12]="content.media.length > 0" [class.col-md-9]="content.media.length <= 0">
-          <h4>{{content.title}}</h4>
-          <p *ngIf="content.subTitle != ''">{{content.subTitle}}</p>
-          <p *ngIf="content.extraTitle != ''">{{content.extraTitle}}</p>
-          <p *ngIf="content.description != ''">{{content.description}}</p>
+          <h4><small>Title:</small> {{content.title}}</h4>
+          <p class="mb-1" *ngIf="content.subTitle != ''"><small>Sub title:</small> {{content.subTitle}}</p>
+          <p class="mb-1" *ngIf="content.extraTitle != ''"><small>Extra title:</small> {{content.extraTitle}}</p>
+          <p *ngIf="content.description != ''"><small>Description:</small> {{content.description}}</p>
           <div class="media-row" *ngIf="content.media.length != 0">
             <div class="row">
               <div class="col-md-4" *ngFor="let media of content.media">
@@ -82,10 +82,35 @@
                 <input (change)="uploadimage($event)" type="file" class="form-control">
               </div>
               <div class="col-12" *ngIf="content.media.length != 0">
-                <label for="inputAddress2" class="form-label">Media</label>
-                <input type="file" class="form-control">
-                <input type="file" class="form-control my-2">
-                <input type="file" class="form-control">
+                <label class="form-label">Media</label>
+                <div class="row">
+                  <div *ngFor="let media of content.media; let i = index" class="col-md-4 h-100">
+                    <img src="{{media.image}}" class="img-fluid">
+                    <p style="font-size: 15px;">{{media.title}}</p>
+                    <div class="d-flex gap-1">
+                      <button class="btn btn-outline-warning">Edit</button>
+                      <button class="btn btn-outline-danger" (click)="deleteImageFromMedia(i)">Delete</button>
+                      <!-- <div class="modal" tabindex="-1" id="deleteModal">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Delete image</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <p>Are you sure you want to delete this image ?</p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-toggle="modal" 
+                              [attr.data-bs-target]="'#'+'ed'+content._id">Cancel</button>
+                              <button type="button" class="btn btn-primary" (click)="deleteImageFromMedia(i)">Delete</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
               </div>
             </form>
           </div>

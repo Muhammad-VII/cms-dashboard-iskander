@@ -9,8 +9,11 @@ header {
 
 article {
   .section-group-content {
-    margin-top: 1rem;
+    margin-top: 0rem;
     margin-bottom: 2rem;
+    small {
+      color: #2563EB;
+    }
   }
   h3 {
     font-family: Inter;
