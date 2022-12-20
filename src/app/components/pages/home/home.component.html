@@ -88,7 +88,8 @@
                     <img src="{{media.image}}" class="img-fluid">
                     <p style="font-size: 15px;">{{media.title}}</p>
                     <div class="d-flex gap-1">
-                      <button class="btn btn-outline-warning">Edit</button>
+                      <button class="btn btn-outline-warning" (click)="mediaUpload.click()">Edit</button>
+                      <input type="file" (change)="uploadMedia($event, i)" hidden #mediaUpload>
                       <button class="btn btn-outline-danger" (click)="deleteImageFromMedia(i)">Delete</button>
                       <!-- <div class="modal" tabindex="-1" id="deleteModal">
                         <div class="modal-dialog">

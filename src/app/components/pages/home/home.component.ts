@@ -152,6 +152,35 @@ export class HomeComponent implements OnDestroy {
       })
   }
 
+  uploadMedia(event: any, index: number) {
+    this._DashboardService.uploadImage(event.target.files[0], `images/home/${event.target.files[0].name}`).subscribe({
+      next: (val) => {
+        this._NgxSpinnerService.show();
+        const mediaArray:any[] = this.editForm.value.media;
+        //TODO OPENS MODEL TO EDIT TEXT AS WELL AS IMAGE
+        this._DashboardService.update(this.editForm.value._id, {
+          title: this.editForm.value.title,
+          subTitle: this.editForm.value.subTitle,
+          extraTitle: this.editForm.value.extraTitle,
+          description: this.editForm.value.description,
+          image: this.editForm.value.image,
+          media: mediaArray,
+          hidden: this.editForm.value.hidden,
+          dir: this.editForm.value.dir,
+          }).subscribe({
+            next: (res) => {
+              this._NgxSpinnerService.hide();
+              this._ToastrService.success('The section has been updated');
+              window.location.reload();
+            }
+          })
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+
   ngOnDestroy(): void {
     this.subscribtions.forEach((sub) => {
       sub.unsubscribe();
