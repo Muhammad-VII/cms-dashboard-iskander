@@ -2,7 +2,7 @@ import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ref, uploadBytes, getDownloadURL, Storage } from '@angular/fire/storage';
-import { Observable, from, switchMap } from 'rxjs';
+import { Observable, from, switchMap, tap, catchError } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -21,6 +21,17 @@ export class DashboardService {
           Authorization: `Bearer ${localStorage.getItem('token')!}`,
         },
       }
+    ).pipe(
+      catchError((results: any) => {
+        if(results.error.statusCode == 401) {
+          localStorage.removeItem('token');
+          this._AuthService.$isLoggedIn.next(false);
+          this._AuthService.profileInfo.next(null);
+          window.location.reload();
+        } else {
+          return results;
+        }
+      })
     );
   }
 

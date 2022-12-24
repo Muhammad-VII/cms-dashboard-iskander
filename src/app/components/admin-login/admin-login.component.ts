@@ -60,7 +60,6 @@ export class AdminLoginComponent {
       this._NgxSpinnerService.show();
       this._AuthService.login(this.loginForm.value).subscribe({
         next: (res:any) => {
-          console.log(res);
           this._NgxSpinnerService.hide();
           if (res.data.status === 401) {
             this._ToastrService.error(res.data.message, 'Error');
