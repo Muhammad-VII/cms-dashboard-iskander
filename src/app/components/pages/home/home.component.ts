@@ -16,16 +16,17 @@ export class HomeComponent implements OnDestroy {
   switchValue = false;
   loading = false;
   pageData: any;
+  lang: string = localStorage.getItem('lang')! ?? 'due';
   editForm:FormGroup = new FormGroup({
     _id: new FormControl(''),
-    title: new FormControl('', [Validators.required]),
+    title: new FormControl(''),
     subTitle: new FormControl(''),
     extraTitle: new FormControl(''),
     description: new FormControl(''),
     image: new FormControl(''),
     media: new FormControl(''),
     hidden: new FormControl(''),
-    dir: new FormControl(''),
+    btnHidden: new FormControl('')
   })
   constructor(
     private _AuthService: AuthService,
@@ -86,7 +87,7 @@ export class HomeComponent implements OnDestroy {
       image: obj.image,
       media: obj.media,
       hidden: obj.hidden,
-      dir: obj.dir,
+      btnHidden: obj.btnHidden,
     })
   }
 

@@ -12,15 +12,23 @@
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="home">
+      <li *ngIf="lang == 'en' || lang == 'due'" nz-submenu nzOpen nzTitle="Dashboard" nzIcon="home">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/dashboard">Dashboard</a>
           </li>
         </ul>
       </li>
-      
-      <li nz-submenu nzOpen nzTitle="Pages" nzIcon="file-jpg">
+
+      <li *ngIf="lang == 'ar'" nz-submenu nzOpen nzTitle="لوحة القيادة" nzIcon="home">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/dashboard">لوحة القيادة</a>
+          </li>
+        </ul>
+      </li>
+
+      <li *ngIf="lang == 'en' || lang == 'due'" nz-submenu nzOpen nzTitle="Pages" nzIcon="file-jpg">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/dashboard/home">Home</a>
@@ -37,7 +45,24 @@
         </ul>
       </li>
 
-      <li nz-submenu nzOpen nzTitle="Messages" nzIcon="mail">
+      <li *ngIf="lang == 'ar'" nz-submenu nzOpen nzTitle="الصفحات" nzIcon="file-jpg">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/dashboard/home">Home</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/dashboard/was-wir-sind">Ws wir sind</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/dashboard/was-wir-tun">Was wir tun</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/dashboard/kontakt">KontaKt</a>
+          </li>
+        </ul>
+      </li>
+
+      <li *ngIf="lang == 'en' || lang == 'due'" nz-submenu nzOpen nzTitle="Messages" nzIcon="mail">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a>Messages</a>
@@ -45,10 +70,50 @@
         </ul>
       </li>
 
-      <li nz-submenu nzOpen nzTitle="Settings" nzIcon="setting">
+      <li *ngIf="lang == 'ar'" nz-submenu nzOpen nzTitle="الرسائل" nzIcon="mail">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a>Edit profile</a>
+            <a>رسائل العملاء</a>
+          </li>
+        </ul>
+      </li>
+
+      <li *ngIf="lang == 'en' || lang == 'due'" nz-submenu nzOpen nzTitle="Settings" nzIcon="setting">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a >Edit profile</a>
+          </li>
+
+          <li (click)="changeLanguage('due')" nz-menu-item nzMatchRouter>
+            <a>DUE</a>
+          </li>
+
+          <li (click)="changeLanguage('en')" nz-menu-item nzMatchRouter>
+            <a>EN</a>
+          </li>
+
+          <li (click)="changeLanguage('ar')" nz-menu-item nzMatchRouter>
+            <a>AR</a>
+          </li>
+        </ul>
+      </li>
+
+      <li *ngIf="lang == 'ar'" nz-submenu nzOpen nzTitle="الاعدادات" nzIcon="setting">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a>تعديل الملف الشخصي</a>
+          </li>
+
+          <li (click)="changeLanguage('due')" nz-menu-item nzMatchRouter>
+            <a>الالمانيه</a>
+          </li>
+
+          <li (click)="changeLanguage('en')" nz-menu-item nzMatchRouter>
+            <a>الانجليزية</a>
+          </li>
+
+          <li (click)="changeLanguage('ar')" nz-menu-item nzMatchRouter>
+            <a>العربية</a>
           </li>
         </ul>
       </li>

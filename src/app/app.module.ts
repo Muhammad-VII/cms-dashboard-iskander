@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
@@ -26,7 +26,6 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
-
 @NgModule({
   declarations: [
     AppComponent,
