@@ -1,4 +1,4 @@
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { DashboardService } from './../../../services/dashboard.service';
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnDestroy } from '@angular/core';
