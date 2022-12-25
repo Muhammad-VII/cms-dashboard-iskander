@@ -249,6 +249,10 @@ export class HomeComponent implements OnDestroy {
           this._NgxSpinnerService.hide();
           this._ToastrService.success('The section has been updated');
           window.location.reload();
+        },
+        error: (err) => {
+          this._NgxSpinnerService.hide();
+          this._ToastrService.error('An error has occured');
         }
       });
   }
