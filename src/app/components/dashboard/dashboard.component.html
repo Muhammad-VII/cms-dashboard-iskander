@@ -80,9 +80,24 @@
 
       <li *ngIf="lang == 'en' || lang == 'due'" nz-submenu nzOpen nzTitle="Settings" nzIcon="setting">
         <ul>
+
           <li nz-menu-item nzMatchRouter>
-            <a >Edit profile</a>
+            <a>Edit profile</a>
           </li>
+
+        </ul>
+      </li>
+
+      <li *ngIf="lang == 'ar'" nz-submenu nzOpen nzTitle="الاعدادات" nzIcon="setting">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a>تعديل الملف الشخصي</a>
+          </li>
+        </ul>
+      </li>
+
+      <li *ngIf="lang == 'en' || lang == 'due'" nz-submenu nzOpen nzTitle="Language" nzIcon="setting">
+        <ul>
 
           <li (click)="changeLanguage('due')" nz-menu-item nzMatchRouter>
             <a>DUE</a>
@@ -98,11 +113,8 @@
         </ul>
       </li>
 
-      <li *ngIf="lang == 'ar'" nz-submenu nzOpen nzTitle="الاعدادات" nzIcon="setting">
+      <li *ngIf="lang == 'ar'" nz-submenu nzOpen nzTitle="اللغه" nzIcon="setting">
         <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a>تعديل الملف الشخصي</a>
-          </li>
 
           <li (click)="changeLanguage('due')" nz-menu-item nzMatchRouter>
             <a>الالمانيه</a>
