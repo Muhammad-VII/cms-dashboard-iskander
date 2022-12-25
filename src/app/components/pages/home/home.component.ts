@@ -231,7 +231,6 @@ export class HomeComponent implements OnDestroy {
   submitEditMedia() {
     let mediaArray: any[] = this.editForm.value.media;
     mediaArray[this.mediaIndex] = this.editMediaForm.value;
-    console.log(mediaArray);
     this._NgxSpinnerService.show();
     this._DashboardService
       .update(this.editForm.value._id, {
