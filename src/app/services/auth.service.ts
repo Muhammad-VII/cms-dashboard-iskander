@@ -6,8 +6,6 @@ import {
   catchError,
   throwError,
   timeout,
-  Observable,
-  from,
 } from 'rxjs';
 import jwtDecode from 'jwt-decode';
 @Injectable({
@@ -37,7 +35,7 @@ export class AuthService {
   }
 
   login(data: { email: string; password: string }) {
-    return this._HttpClient.post('http://localhost:3000/login', data).pipe(
+    return this._HttpClient.post('https://ng-cms-dashboard.herokuapp.com/login', data).pipe(
       catchError((err) => {
         return throwError(() => new Error(err));
       }),

@@ -30,7 +30,7 @@ export class DashboardService {
   getHomePage(): Observable<any> {
     return this._HttpClient
       .get(
-        `http://localhost:3000/home/getAllSections-${this.lang}?limit=10&skip=0`,
+        `https://ng-cms-dashboard.herokuapp.com/home/getAllSections-${this.lang}?limit=10&skip=0`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')!}`,
@@ -54,7 +54,7 @@ export class DashboardService {
   getWasWirSindPage(): Observable<any> {
     return this._HttpClient
       .get(
-        `http://localhost:3000/war-wir-sind/getAllSections-${this.lang}?limit=10&skip=0`,
+        `https://ng-cms-dashboard.herokuapp.com/war-wir-sind/getAllSections-${this.lang}?limit=10&skip=0`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')!}`,
@@ -78,7 +78,7 @@ export class DashboardService {
   getWasWirTunPage(): Observable<any> {
     return this._HttpClient
       .get(
-        `http://localhost:3000/war-wir-tun/getAllSections-${this.lang}?limit=10&skip=0`,
+        `https://ng-cms-dashboard.herokuapp.com/war-wir-tun/getAllSections-${this.lang}?limit=10&skip=0`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')!}`,
@@ -101,7 +101,7 @@ export class DashboardService {
 
   update(id: string, data: any): Observable<any> {
     return this._HttpClient.patch(
-      `http://localhost:3000/home/updateSectionById-${this.lang}/${id}`,
+      `https://ng-cms-dashboard.herokuapp.com/home/updateSectionById-${this.lang}/${id}`,
       data,
       {
         headers: {
@@ -113,7 +113,7 @@ export class DashboardService {
 
   updateWasWirSind(id: string, data: any): Observable<any> {
     return this._HttpClient.patch(
-      `http://localhost:3000/war-wir-sind/updateSectionById-${this.lang}/${id}`,
+      `https://ng-cms-dashboard.herokuapp.com/war-wir-sind/updateSectionById-${this.lang}/${id}`,
       data,
       {
         headers: {
@@ -125,7 +125,7 @@ export class DashboardService {
 
   updateWasWirTun(id: string, data: any): Observable<any> {
     return this._HttpClient.patch(
-      `http://localhost:3000/war-wir-tun/updateSectionById-${this.lang}/${id}`,
+      `https://ng-cms-dashboard.herokuapp.com/war-wir-tun/updateSectionById-${this.lang}/${id}`,
       data,
       {
         headers: {
