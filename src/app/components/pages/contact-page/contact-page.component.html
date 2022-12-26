@@ -1,0 +1,204 @@
+<header>
+  <h2 *ngIf="lang == 'due' || lang == 'en'">Kontakt</h2>
+  <h2 *ngIf="lang == 'ar'" style="text-align: right;">صفحه التواصل</h2>
+</header>
+
+<article>
+  <div class="section-group" *ngFor="let content of pageData; let i = index">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="section">
+        <h3 class="text-muted" *ngIf="lang == 'due' || lang == 'en'">Section name: {{content.title}}</h3>
+        <h3 class="text-muted" *ngIf="lang == 'ar'" style="text-align: right;">اسم الجزء: {{content.title}}</h3>
+      </div>
+      <div class="d-flex gap-3 align-items-center">
+        <div class="d-flex align-items-center" [class.flex-row-reverse]="lang == 'ar'">
+          <label *ngIf="lang == 'due' || lang == 'en'">Published</label>
+          <label *ngIf="lang == 'ar'" style="text-align: right;">نشر</label>
+          <nz-switch [ngModel]="!content.hidden" [nzControl]="true"
+            (click)="publish(content, content.hidden ? false : true)">
+          </nz-switch>
+        </div>
+
+        <div>
+          <button class="border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            [attr.data-bs-target]="'#'+'ed'+content._id" data- (click)="patchValuesToEditForm(content)">
+            <img src="assets/icons/edit.png" alt="" srcset="">
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-group-content">
+      <div class="row">
+        <div [class.col-md-12]="content.media.length > 0" [class.col-md-9]="content.media.length <= 0">
+          <h4 *ngIf="lang == 'due' || lang == 'en'"><small>Title:</small> {{content.title}}</h4>
+          <h4 *ngIf="lang == 'ar'" style="text-align: right;"><small>العنوان:</small> {{content.title}}</h4>
+          <p class="mb-1" *ngIf="lang == 'due' || lang == 'en'"><small>Sub title:</small> {{content.subTitle}}</p>
+          <p class="mb-1" *ngIf="lang == 'ar'" style="text-align: right;"><small>العنوان الفرعي:</small> {{content.subTitle}}</p>
+          <p class="mb-1" *ngIf="lang == 'due' || lang == 'en'"><small>Extra title:</small> {{content.extraTitle}}</p>
+          <p class="mb-1" *ngIf="lang == 'ar'" style="text-align: right;"><small>عنوان اضافي:</small> {{content.extraTitle}}</p>
+          <p *ngIf="lang == 'due' || lang == 'en'"><small>Description:</small> {{content.description}}</p>
+          <p *ngIf="lang == 'ar'" style="text-align: right;"><small>تفاصيل:</small> {{content.description}}</p>
+          <div class="media-row" *ngIf="content.media.length != 0">
+            <div class="row">
+              <div class="col-md-4" *ngFor="let media of content.media">
+                <img class="w-100 mb-2" [src]="media.image" alt="" srcset="">
+                <p>{{media.title}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3" [hidden]="content.media.length > 0">
+          <img src="{{content.image}}" class="w-100" alt="" srcset="">
+        </div>
+      </div>
+    </div>
+
+    <div data-bs-backdrop="static" data-bs-keyboard="false" *ngFor="let content of pageData; let i = index" class="modal fade" [id]="'ed'+content._id" tabindex="-1"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{content.title}}</h5>
+          </div>
+          <div class="modal-body">
+            <form class="row g-3" [formGroup]="editForm">
+              <div class="col-12">
+                <label for="inputAddress" class="form-label" *ngIf="lang == 'due' || lang == 'en'">Title</label>
+                <label for="inputAddress" class="form-label" *ngIf="lang == 'ar'">العنوان</label>
+                <input type="text" class="form-control" class="form-control" formControlName="title">
+              </div>
+
+              <div class="col-12">
+                <label for="inputAddress" class="form-label" *ngIf="lang == 'due' || lang == 'en'">Sub title</label>
+                <label for="inputAddress" class="form-label" *ngIf="lang == 'ar'">العنوان الفرعي</label>
+                <input type="text" class="form-control" class="form-control" formControlName="subTitle">
+              </div>
+
+              <div class="col-12">
+                <label for="inputAddress" class="form-label" *ngIf="lang == 'due' || lang == 'en'">Extra title</label>
+                <label for="inputAddress" class="form-label" *ngIf="lang == 'ar'">العنوان الاضافي</label>
+                <input type="text" class="form-control" class="form-control" formControlName="extraTitle">
+              </div>
+
+              <div class="col-12">
+                <label for="inputAddress" class="form-label" *ngIf="lang == 'due' || lang == 'en'">Description</label>
+                <label for="inputAddress" class="form-label" *ngIf="lang == 'ar'">التفاصيل</label>
+                <textarea type="text" class="form-control" class="form-control" formControlName="description" rows="4"></textarea>
+              </div>
+
+              <div class="col-12" *ngIf="content.media.length == 0">
+                <label for="inputAddress2" class="form-label" *ngIf="lang == 'due' || lang == 'en'">Image</label>
+                <label for="inputAddress2" class="form-label" *ngIf="lang == 'ar'">الصور</label>
+                <input (change)="uploadimage($event, 'data')" type="file" class="form-control">
+              </div>
+              <div class="col-12" *ngIf="content.media.length != 0">
+                <label class="form-label" *ngIf="lang == 'due' || lang == 'en'">Media</label>
+                <label class="form-label" *ngIf="lang == 'ar'">الصور</label>
+                <div class="row">
+                  <div *ngFor="let media of content.media; let i = index" class="col-md-4 h-100">
+                    <img src="{{media.image}}" class="img-fluid">
+                    <textarea disabled class="form-control">{{media.title}}</textarea>
+                    <div class="d-flex gap-1">
+                      <button *ngIf="lang == 'due' || lang == 'en'" class="btn btn-outline-warning" data-bs-target="#mediaEditModal" data-bs-toggle="modal" (click)="editMedia(media, i)">Edit</button>
+                      <button *ngIf="lang == 'ar'" class="btn btn-outline-warning" data-bs-target="#mediaEditModal" data-bs-toggle="modal" (click)="editMedia(media, i)">تعديل</button>
+                      <input type="file" (change)="uploadMedia($event, i)" hidden #mediaUpload>
+                      <button *ngIf="lang == 'due' || lang == 'en'" class="btn btn-outline-danger" (click)="deleteImageFromMedia(i)">Delete</button>
+                      <button *ngIf="lang == 'ar'" class="btn btn-outline-danger" (click)="deleteImageFromMedia(i)">مسح</button>
+                    </div>
+                  </div>
+                  <button *ngIf="lang == 'due' || lang == 'en'" class="btn btn-outline-success mt-2" data-bs-target="#addNewMedia" data-bs-toggle="modal">Add new media</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer" [class.justify-content-start]="lang == 'ar'">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" *ngIf="lang == 'due' || lang == 'en'">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" *ngIf="lang == 'ar'">غلق</button>
+            <button type="button" class="btn btn-primary" (click)="submitEditForm()" [disabled]="!uploadLoading" *ngIf="lang == 'due' || lang == 'en'">Save changes</button>
+            <button type="button" class="btn btn-primary" (click)="submitEditForm()" [disabled]="!uploadLoading" *ngIf="lang == 'ar'">حفظ التعديلات</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- Modal -->
+<div class="modal fade" id="mediaEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Media</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editMediaForm">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Title</label>
+            <input type="text" class="form-control" formControlName="title">
+          </div>
+          
+          <div class="form-group">
+            <label for="exampleInputEmail1">Sub-title</label>
+            <input type="text" class="form-control" formControlName="subTitle">
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Description</label>
+            <input type="text" class="form-control" formControlName="description">
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Image</label>
+            <input type="file" class="form-control" (change)="uploadimage($event, 'media')">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="submitEditMedia()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addNewMedia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add new media</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addMediaForm">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Title</label>
+            <input type="text" class="form-control" formControlName="title">
+          </div>
+          
+          <div class="form-group">
+            <label for="exampleInputEmail1">Sub-title</label>
+            <input type="text" class="form-control" formControlName="subTitle">
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Description</label>
+            <input type="text" class="form-control" formControlName="description">
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Image</label>
+            <input type="file" class="form-control" (change)="uploadimage($event, 'addMedia')">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" *ngIf="lang == 'due' || lang == 'en'">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" *ngIf="lang == 'ar'">غلق</button>
+        <button type="button" class="btn btn-primary" (click)="addNewMedia()" [disabled]="!uploadLoading" *ngIf="lang == 'due' || lang == 'en'">Save changes</button>
+        <button type="button" class="btn btn-primary" (click)="addNewMedia()" [disabled]="!uploadLoading" *ngIf="lang == 'ar'">حفظ التعديلات</button>
+      </div>
+    </div>
+  </div>
+</div>

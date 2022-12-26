@@ -26,6 +26,7 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
+import { ContactPageComponent } from './components/pages/contact-page/contact-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
     WasWirSindComponent,
     WasWirTunComponent,
     KontaktComponent,
+    ContactPageComponent,
   ],
   imports: [
     BrowserModule,

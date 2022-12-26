@@ -16,7 +16,7 @@ export class DashboardService {
   constructor(
     private _HttpClient: HttpClient,
     private _AuthService: AuthService,
-    private storage: Storage,
+    private storage: Storage
   ) {
     if (this.lang == 'ar') {
       document.dir = 'rtl';
@@ -139,5 +139,61 @@ export class DashboardService {
     const storageRef = ref(this.storage, path);
     const uploadTask = from(uploadBytes(storageRef, image));
     return uploadTask.pipe(switchMap((result) => getDownloadURL(result.ref)));
+  }
+
+  getContactMessages(): Observable<any> {
+    return this._HttpClient.get(
+      `https://ng-cms-dashboard.herokuapp.com/contact/getAllMessages`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')!}`,
+        },
+      }
+    );
+  }
+
+  deleteAllMessages(): Observable<any> {
+    return this._HttpClient.delete(
+      `https://ng-cms-dashboard.herokuapp.com/contact/deleteAllMessages`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')!}`,
+        },
+      }
+    );
+  }
+
+  deleteMessage(id: string): Observable<any> {
+    return this._HttpClient.delete(
+      `https://ng-cms-dashboard.herokuapp.com/contact/deleteMessage?id=${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')!}`,
+        },
+      }
+    );
+  }
+
+  getContactPage(): Observable<any> {
+    return this._HttpClient.get(
+      `https://ng-cms-dashboard.herokuapp.com/contact-page/getAllSections-${this.lang}?limit=10&skip=0`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')!}`,
+        },
+      }
+    );
+  }
+
+  updateContactPage(id: string, data: any): Observable<any> {
+    return this._HttpClient.patch(
+      `https://ng-cms-dashboard.herokuapp.com/contact-page/updateSectionById-${this.lang}/${id}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')!}`,
+        },
+      }
+    );
   }
 }

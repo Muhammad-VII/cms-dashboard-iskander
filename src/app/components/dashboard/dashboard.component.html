@@ -39,8 +39,9 @@
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/dashboard/was-wir-tun">Was wir tun</a>
           </li>
+
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/dashboard/kontakt">KontaKt</a>
+            <a routerLink="/dashboard/contact-page">Kontakt</a>
           </li>
         </ul>
       </li>
@@ -57,7 +58,7 @@
             <a routerLink="/dashboard/was-wir-tun">ما نقوم به</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/dashboard/kontakt">الايميلات المستقبله</a>
+            <a routerLink="/dashboard/contact-page">صفحه التواصل</a>
           </li>
         </ul>
       </li>
@@ -65,7 +66,7 @@
       <li *ngIf="lang == 'en' || lang == 'due'" nz-submenu nzOpen nzTitle="Messages" nzIcon="mail">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a>Messages</a>
+            <a routerLink="/dashboard/kontakt">Messages</a>
           </li>
         </ul>
       </li>
@@ -73,7 +74,7 @@
       <li *ngIf="lang == 'ar'" nz-submenu nzOpen nzTitle="الرسائل" nzIcon="mail">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a>رسائل العملاء</a>
+            <a routerLink="/dashboard/kontakt">رسائل العملاء</a>
           </li>
         </ul>
       </li>

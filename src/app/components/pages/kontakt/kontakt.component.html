@@ -1,1 +1,27 @@
-<p>kontakt works!</p>
+<div class="deleteAllBtnSection">
+  <button class="btn btn-outline-danger" (click)="deleteAllMessages()">Delete All Messages</button>
+</div>
+<div class="row">
+  <div class="col-md-4 mb-2" *ngFor="let message of messages$ | async; else loading">
+    <div class="message">
+      <div class="message__title">
+        <h4>Name: {{message.name}}</h4>
+      </div>
+      <div class="message__content">
+        <div class="message__content__title">
+          <p>Email: {{message.email}}</p>
+        </div>
+        <div class="message__content__text">
+          <p>Subject: {{message.subject}}</p>
+        </div>
+
+        <div class="message__content__text">
+          <p>Message: {{message.message}}</p>
+        </div>
+        <div class="delete-btn">
+          <button class="btn btn-outline-danger" (click)="deleteMessage(message._id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
