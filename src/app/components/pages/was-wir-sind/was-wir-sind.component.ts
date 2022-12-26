@@ -11,7 +11,7 @@ declare const $: any;
   templateUrl: './was-wir-sind.component.html',
   styleUrls: ['./was-wir-sind.component.scss']
 })
-export class WasWirSindComponent {
+export class WasWirSindComponent implements OnDestroy {
   subscribtions: Subscription[] = [];
   switchValue = false;
   loading = false;
@@ -50,15 +50,12 @@ export class WasWirSindComponent {
     private _NgxSpinnerService: NgxSpinnerService,
     private _ToastrService: ToastrService
   ) {
-    this.editForm.valueChanges.subscribe(console.log);
-    this.editMediaForm.valueChanges.subscribe(console.log);
     this._NgxSpinnerService.show();
     this.subscribtions.push(
       this._DashboardService.getWasWirSindPage().subscribe({
         next: (res) => {
           this._NgxSpinnerService.hide();
           this.pageData = res.data;
-          console.log(res.data);
         },
         error: (err) => {
           this._NgxSpinnerService.hide();
@@ -70,7 +67,8 @@ export class WasWirSindComponent {
 
   publish(obj: any, publishState: boolean): void {
     this._NgxSpinnerService.show();
-    this._DashboardService
+    this.subscribtions.push(
+      this._DashboardService
       .updateWasWirSind(obj._id, {
         title: obj.title,
         subTitle: obj.subTitle,
@@ -79,7 +77,7 @@ export class WasWirSindComponent {
         image: obj.image,
         media: obj.media,
         hidden: publishState,
-        dir: obj.dir,
+        btnHidden: obj.btnHidden,
       })
       .subscribe({
         next: (res) => {
@@ -91,7 +89,8 @@ export class WasWirSindComponent {
           this._NgxSpinnerService.hide();
           this._ToastrService.error('An error has occured');
         },
-      });
+      })
+    )
   }
 
   patchValuesToEditForm(obj: any) {
@@ -110,10 +109,11 @@ export class WasWirSindComponent {
 
   uploadimage(event: any, type: string) {
     this.uploadLoading = false;
-    this._DashboardService
+    this.subscribtions.push(
+      this._DashboardService
       .uploadImage(
         event.target.files[0],
-        `images/home/${event.target.files[0].name}`
+        `images/was_wir_tun/${event.target.files[0].name}`
       )
       .subscribe({
         next: (val) => {
@@ -139,12 +139,14 @@ export class WasWirSindComponent {
           );
           console.log(err);
         },
-      });
+      })
+    )
   }
 
   submitEditForm() {
     this._NgxSpinnerService.show();
-    this._DashboardService
+    this.subscribtions.push(
+      this._DashboardService
       .updateWasWirSind(this.editForm.value._id, {
         title: this.editForm.value.title,
         subTitle: this.editForm.value.subTitle,
@@ -153,7 +155,7 @@ export class WasWirSindComponent {
         image: this.editForm.value.image,
         media: this.editForm.value.media,
         hidden: this.editForm.value.hidden,
-        dir: this.editForm.value.dir,
+        btnHidden: this.editForm.value.btnHidden,
       })
       .subscribe({
         next: (res) => {
@@ -166,14 +168,16 @@ export class WasWirSindComponent {
           this._NgxSpinnerService.hide();
           this._ToastrService.error('An error has occured');
         },
-      });
+      })
+    )
   }
 
   deleteImageFromMedia(index: number) {
-    // this._NgxSpinnerService.show();
+    this._NgxSpinnerService.show();
     const mediaArray = this.editForm.value.media;
     mediaArray.splice(index, 1);
-    this._DashboardService
+    this.subscribtions.push(
+      this._DashboardService
       .updateWasWirSind(this.editForm.value._id, {
         title: this.editForm.value.title,
         subTitle: this.editForm.value.subTitle,
@@ -186,18 +190,19 @@ export class WasWirSindComponent {
       })
       .subscribe({
         next: (res) => {
-          // this._NgxSpinnerService.hide();
+          this._NgxSpinnerService.hide();
           this._ToastrService.success('The section has been updated');
-          window.location.reload();
         },
-      });
+      })
+    )
   }
 
   uploadMedia(event: any, index: number) {
-    this._DashboardService
+    this.subscribtions.push(
+      this._DashboardService
       .uploadImage(
         event.target.files[0],
-        `images/home/${event.target.files[0].name}`
+        `images/was_wir_sind/${event.target.files[0].name}`
       )
       .subscribe({
         next: (val) => {
@@ -225,7 +230,8 @@ export class WasWirSindComponent {
         error: (err) => {
           console.log(err);
         },
-      });
+      })
+    )
   }
   mediaIndex: number = 0;
   editMedia(obj: any, index: number) {
@@ -247,8 +253,8 @@ export class WasWirSindComponent {
       description: this.addMediaForm.value.description,
       image: this.addMediaForm.value.image,
     });
-    console.log(mediaArray);
-    this._DashboardService
+    this.subscribtions.push(
+      this._DashboardService
       .updateWasWirSind(this.editForm.value._id, {
         title: this.editForm.value.title,
         subTitle: this.editForm.value.subTitle,
@@ -265,7 +271,8 @@ export class WasWirSindComponent {
           this._ToastrService.success('The section has been updated');
           window.location.reload();
         },
-      });
+      })
+    )
   }
 
   submitEditMedia() {

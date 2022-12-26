@@ -18,7 +18,6 @@ export class DashboardService {
     private _AuthService: AuthService,
     private storage: Storage,
   ) {
-    console.log(this.lang);
     if (this.lang == 'ar') {
       document.dir = 'rtl';
     } else if (this.lang == 'en') {
@@ -76,6 +75,30 @@ export class DashboardService {
       );
   }
 
+  getWasWirTunPage(): Observable<any> {
+    return this._HttpClient
+      .get(
+        `http://localhost:3000/war-wir-tun/getAllSections-${this.lang}?limit=10&skip=0`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')!}`,
+          },
+        }
+      )
+      .pipe(
+        catchError((results: any) => {
+          if (results.error.statusCode == 401) {
+            localStorage.removeItem('token');
+            this._AuthService.$isLoggedIn.next(false);
+            this._AuthService.profileInfo.next(null);
+            window.location.reload();
+          } else {
+            return results;
+          }
+        })
+      );
+  }
+
   update(id: string, data: any): Observable<any> {
     return this._HttpClient.patch(
       `http://localhost:3000/home/updateSectionById-${this.lang}/${id}`,
@@ -91,6 +114,18 @@ export class DashboardService {
   updateWasWirSind(id: string, data: any): Observable<any> {
     return this._HttpClient.patch(
       `http://localhost:3000/war-wir-sind/updateSectionById-${this.lang}/${id}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')!}`,
+        },
+      }
+    );
+  }
+
+  updateWasWirTun(id: string, data: any): Observable<any> {
+    return this._HttpClient.patch(
+      `http://localhost:3000/war-wir-tun/updateSectionById-${this.lang}/${id}`,
       data,
       {
         headers: {
