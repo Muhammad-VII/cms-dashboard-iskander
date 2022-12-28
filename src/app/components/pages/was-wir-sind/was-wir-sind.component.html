@@ -33,16 +33,22 @@
         <div [class.col-md-12]="content.media.length > 0" [class.col-md-9]="content.media.length <= 0">
           <h4 *ngIf="lang == 'due' || lang == 'en'"><small>Title:</small> {{content.title}}</h4>
           <h4 *ngIf="lang == 'ar'" style="text-align: right;"><small>العنوان:</small> {{content.title}}</h4>
-          <p class="mb-1" *ngIf="lang == 'due' || lang == 'en'"><small>Sub title:</small> {{content.subTitle}}</p>
-          <p class="mb-1" *ngIf="lang == 'ar'" style="text-align: right;"><small>العنوان الفرعي:</small> {{content.subTitle}}</p>
-          <p class="mb-1" *ngIf="lang == 'due' || lang == 'en'"><small>Extra title:</small> {{content.extraTitle}}</p>
-          <p class="mb-1" *ngIf="lang == 'ar'" style="text-align: right;"><small>عنوان اضافي:</small> {{content.extraTitle}}</p>
-          <p *ngIf="lang == 'due' || lang == 'en'"><small>Description:</small> {{content.description}}</p>
-          <p *ngIf="lang == 'ar'" style="text-align: right;"><small>تفاصيل:</small> {{content.description}}</p>
-          <div class="media-row" *ngIf="content.media.length != 0">
+          <p class="mb-1" *ngIf="lang == 'due' || lang == 'en'"><small *ngIf="content.subTitle != ''">Sub title:</small>
+            {{content.subTitle}}</p>
+          <p class="mb-1" *ngIf="lang == 'ar'" style="text-align: right;"><small *ngIf="content.subTitle != ''">العنوان
+              الفرعي:</small> {{content.subTitle}}</p>
+          <p class="mb-1" *ngIf="lang == 'due' || lang == 'en'"><small *ngIf="content.extraTitle != ''">Extra
+              title:</small> {{content.extraTitle}}</p>
+          <p class="mb-1" *ngIf="lang == 'ar'" style="text-align: right;"><small *ngIf="content.extraTitle != ''">عنوان
+              اضافي:</small> {{content.extraTitle}}</p>
+          <p *ngIf="lang == 'due' || lang == 'en'"><small *ngIf="content.description != ''">Description:</small>
+            {{content.description}}</p>
+          <p *ngIf="lang == 'ar'" style="text-align: right;"><small *ngIf="content.description != ''">تفاصيل:</small>
+            {{content.description}}</p>
+          <div class="media-row text-center" *ngIf="content.media.length != 0">
             <div class="row">
               <div class="col-md-4" *ngFor="let media of content.media">
-                <img class="w-100 mb-2" [src]="media.image" alt="" srcset="">
+                <img class="mb-2 w-100" [src]="media.image" alt="" srcset="">
                 <p>{{media.title}}</p>
               </div>
             </div>
@@ -54,8 +60,8 @@
       </div>
     </div>
 
-    <div data-bs-backdrop="static" data-bs-keyboard="false" *ngFor="let content of pageData; let i = index" class="modal fade" [id]="'ed'+content._id" tabindex="-1"
-      aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div data-bs-backdrop="static" data-bs-keyboard="false" *ngFor="let content of pageData; let i = index"
+      class="modal fade" [id]="'ed'+content._id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -84,7 +90,8 @@
               <div class="col-12">
                 <label for="inputAddress" class="form-label" *ngIf="lang == 'due' || lang == 'en'">Description</label>
                 <label for="inputAddress" class="form-label" *ngIf="lang == 'ar'">التفاصيل</label>
-                <textarea type="text" class="form-control" class="form-control" formControlName="description" rows="4"></textarea>
+                <textarea type="text" class="form-control" class="form-control" formControlName="description"
+                  rows="4"></textarea>
               </div>
 
               <div class="col-12" *ngIf="content.media.length == 0">
@@ -92,31 +99,49 @@
                 <label for="inputAddress2" class="form-label" *ngIf="lang == 'ar'">الصور</label>
                 <input (change)="uploadimage($event, 'data')" type="file" class="form-control">
               </div>
+              <hr>
               <div class="col-12" *ngIf="content.media.length != 0">
-                <label class="form-label" *ngIf="lang == 'due' || lang == 'en'">Media</label>
-                <label class="form-label" *ngIf="lang == 'ar'">الصور</label>
+                <header class="d-flex justify-content-between align-items-center border-0 p-0 m-0 mb-2">
+                  <div>
+                    <label class="form-label" *ngIf="lang == 'due' || lang == 'en'">Media</label>
+                    <label class="form-label" *ngIf="lang == 'ar'">الصور</label>
+                  </div>
+                  <div>
+                    <button *ngIf="lang == 'due' || lang == 'en'" class="btn btn-info mt-2"
+                    data-bs-target="#addNewMedia" data-bs-toggle="modal">Add new media</button>
+                  </div>
+                </header>
                 <div class="row">
-                  <div *ngFor="let media of content.media; let i = index" class="col-md-4 h-100">
-                    <img src="{{media.image}}" class="img-fluid">
-                    <textarea disabled class="form-control">{{media.title}}</textarea>
-                    <div class="d-flex gap-1">
-                      <button *ngIf="lang == 'due' || lang == 'en'" class="btn btn-outline-warning" data-bs-target="#mediaEditModal" data-bs-toggle="modal" (click)="editMedia(media, i)">Edit</button>
-                      <button *ngIf="lang == 'ar'" class="btn btn-outline-warning" data-bs-target="#mediaEditModal" data-bs-toggle="modal" (click)="editMedia(media, i)">تعديل</button>
-                      <input type="file" (change)="uploadMedia($event, i)" hidden #mediaUpload>
-                      <button *ngIf="lang == 'due' || lang == 'en'" class="btn btn-outline-danger" (click)="deleteImageFromMedia(i)">Delete</button>
-                      <button *ngIf="lang == 'ar'" class="btn btn-outline-danger" (click)="deleteImageFromMedia(i)">مسح</button>
+                  <div *ngFor="let media of content.media; let i = index" class="col-md-4 h-100 mb-2">
+                    <div class="media-card" style="background-color: #E9ECEF;">
+                      <img src="{{media.image}}" width="239px.33" height="268.91px">
+                      <input disabled class="form-control" type="text" placeholder="{{media.title}}">
+                      <div class="d-flex justify-content-between">
+                        <button *ngIf="lang == 'due' || lang == 'en'" class="btn btn-warning rounded-0"
+                          data-bs-target="#mediaEditModal" data-bs-toggle="modal"
+                          (click)="editMedia(media, i)">Edit</button>
+                        <button *ngIf="lang == 'ar'" class="btn btn-warning rounded-0" data-bs-target="#mediaEditModal"
+                          data-bs-toggle="modal" (click)="editMedia(media, i)">تعديل</button>
+                        <input type="file" (change)="uploadMedia($event, i)" hidden #mediaUpload>
+                        <button *ngIf="lang == 'due' || lang == 'en'" class="btn btn-danger rounded-0"
+                          (click)="deleteImageFromMedia(i)">Delete</button>
+                        <button *ngIf="lang == 'ar'" class="btn btn-danger rounded-0"
+                          (click)="deleteImageFromMedia(i)">مسح</button>
+                      </div>
                     </div>
                   </div>
-                  <button *ngIf="lang == 'due' || lang == 'en'" class="btn btn-outline-success mt-2" data-bs-target="#addNewMedia" data-bs-toggle="modal">Add new media</button>
                 </div>
               </div>
             </form>
           </div>
           <div class="modal-footer" [class.justify-content-start]="lang == 'ar'">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" *ngIf="lang == 'due' || lang == 'en'">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+              *ngIf="lang == 'due' || lang == 'en'">Close</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" *ngIf="lang == 'ar'">غلق</button>
-            <button type="button" class="btn btn-primary" (click)="submitEditForm()" [disabled]="!uploadLoading" *ngIf="lang == 'due' || lang == 'en'">Save changes</button>
-            <button type="button" class="btn btn-primary" (click)="submitEditForm()" [disabled]="!uploadLoading" *ngIf="lang == 'ar'">حفظ التعديلات</button>
+            <button type="button" class="btn btn-primary" (click)="submitEditForm()" [disabled]="!uploadLoading"
+              *ngIf="lang == 'due' || lang == 'en'">Save changes</button>
+            <button type="button" class="btn btn-primary" (click)="submitEditForm()" [disabled]="!uploadLoading"
+              *ngIf="lang == 'ar'">حفظ التعديلات</button>
           </div>
         </div>
       </div>
@@ -138,7 +163,7 @@
             <label for="exampleInputEmail1">Title</label>
             <input type="text" class="form-control" formControlName="title">
           </div>
-          
+
           <div class="form-group">
             <label for="exampleInputEmail1">Sub-title</label>
             <input type="text" class="form-control" formControlName="subTitle">
@@ -176,7 +201,7 @@
             <label for="exampleInputEmail1">Title</label>
             <input type="text" class="form-control" formControlName="title">
           </div>
-          
+
           <div class="form-group">
             <label for="exampleInputEmail1">Sub-title</label>
             <input type="text" class="form-control" formControlName="subTitle">
@@ -194,10 +219,13 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" *ngIf="lang == 'due' || lang == 'en'">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+          *ngIf="lang == 'due' || lang == 'en'">Close</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" *ngIf="lang == 'ar'">غلق</button>
-        <button type="button" class="btn btn-primary" (click)="addNewMedia()" [disabled]="!uploadLoading" *ngIf="lang == 'due' || lang == 'en'">Save changes</button>
-        <button type="button" class="btn btn-primary" (click)="addNewMedia()" [disabled]="!uploadLoading" *ngIf="lang == 'ar'">حفظ التعديلات</button>
+        <button type="button" class="btn btn-primary" (click)="addNewMedia()" [disabled]="!uploadLoading"
+          *ngIf="lang == 'due' || lang == 'en'">Save changes</button>
+        <button type="button" class="btn btn-primary" (click)="addNewMedia()" [disabled]="!uploadLoading"
+          *ngIf="lang == 'ar'">حفظ التعديلات</button>
       </div>
     </div>
   </div>
