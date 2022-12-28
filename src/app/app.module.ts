@@ -27,6 +27,8 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { ContactPageComponent } from './components/pages/contact-page/contact-page.component';
+import { WrapTextPipe } from './pipes/wrap-text.pipe';
+import { SettingsComponent } from './components/pages/settings/settings.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +40,8 @@ import { ContactPageComponent } from './components/pages/contact-page/contact-pa
     WasWirTunComponent,
     KontaktComponent,
     ContactPageComponent,
+    WrapTextPipe,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,

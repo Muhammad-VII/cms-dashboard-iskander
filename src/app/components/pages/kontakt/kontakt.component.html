@@ -1,8 +1,5 @@
-<div class="deleteAllBtnSection">
-  <button class="btn btn-outline-danger" (click)="deleteAllMessages()">Delete All Messages</button>
-</div>
 <div class="row">
-  <div class="col-md-4 mb-2" *ngFor="let message of messages$ | async; else loading">
+  <div class="col-md-12 mb-2" *ngFor="let message of messages$ | async;">
     <div class="message">
       <div class="message__title">
         <h4>Name: {{message.name}}</h4>
@@ -15,11 +12,12 @@
           <p>Subject: {{message.subject}}</p>
         </div>
 
-        <div class="message__content__text">
-          <p>Message: {{message.message}}</p>
+        <div>
+          <p>Message: {{message?.message}}</p>
         </div>
-        <div class="delete-btn">
-          <button class="btn btn-outline-danger" (click)="deleteMessage(message._id)">Delete</button>
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-danger py-1 px-4 rounded-1" (click)="deleteMessage(message._id)">Delete</button>
+          <a href="mailto:{{message.email}}" target="_blank" class="btn btn-outline-secondary py-1 px-4 rounded-1">Inbox</a>
         </div>
       </div>
     </div>

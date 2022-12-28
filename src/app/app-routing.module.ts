@@ -1,3 +1,4 @@
+import { SettingsComponent } from './components/pages/settings/settings.component';
 import { ContactPageComponent } from './components/pages/contact-page/contact-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NgModule } from '@angular/core';
@@ -23,7 +24,8 @@ const routes: Routes = [
       { path: 'was-wir-sind', component: WasWirSindComponent },
       { path: 'was-wir-tun', component: WasWirTunComponent },
       { path: 'kontakt', component: KontaktComponent },
-      { path: 'contact-page', component: ContactPageComponent}
+      { path: 'contact-page', component: ContactPageComponent},
+      { path: 'settings', component: SettingsComponent},
     ],
   },
   { path: '**', component: NotFoundComponent },

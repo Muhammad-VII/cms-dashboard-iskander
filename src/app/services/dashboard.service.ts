@@ -7,7 +7,7 @@ import {
   getDownloadURL,
   Storage,
   deleteObject,
-  list
+  list,
 } from '@angular/fire/storage';
 import { Observable, from, switchMap, catchError } from 'rxjs';
 @Injectable({
@@ -132,7 +132,7 @@ export class DashboardService {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')!}`,
         },
-      } 
+      }
     );
   }
 
@@ -218,6 +218,29 @@ export class DashboardService {
   updateContactPage(id: string, data: any): Observable<any> {
     return this._HttpClient.patch(
       `https://ng-cms-dashboard.herokuapp.com/contact-page/updateSectionById-${this.lang}/${id}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')!}`,
+        },
+      }
+    );
+  }
+
+  getLangueges(): Observable<any> {
+    return this._HttpClient.get(
+      `https://ng-cms-dashboard.herokuapp.com/settings/getAllLangueges`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')!}`,
+        },
+      }
+    );
+  }
+
+  updateLangueges(id: string, data: any): Observable<any> {
+    return this._HttpClient.patch(
+      `https://ng-cms-dashboard.herokuapp.com/settings/updateLanguegeById/${id}`,
       data,
       {
         headers: {

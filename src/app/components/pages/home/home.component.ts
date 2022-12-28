@@ -50,15 +50,12 @@ export class HomeComponent implements OnDestroy {
     private _NgxSpinnerService: NgxSpinnerService,
     private _ToastrService: ToastrService
   ) {
-    this.editForm.valueChanges.subscribe(console.log);
-    this.editMediaForm.valueChanges.subscribe(console.log);
     this._NgxSpinnerService.show();
     this.subscribtions.push(
       this._DashboardService.getHomePage().subscribe({
         next: (res) => {
           this._NgxSpinnerService.hide();
           this.pageData = res.data;
-          console.log(res.data);
         },
         error: (err) => {
           this._NgxSpinnerService.hide();

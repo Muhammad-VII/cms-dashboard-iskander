@@ -83,7 +83,7 @@
         <ul>
 
           <li nz-menu-item nzMatchRouter>
-            <a>Edit profile</a>
+            <a [routerLink]="['/dashboard/settings']">Website settings</a>
           </li>
 
         </ul>
@@ -92,7 +92,7 @@
       <li *ngIf="lang == 'ar'" nz-submenu nzOpen nzTitle="الاعدادات" nzIcon="setting">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a>تعديل الملف الشخصي</a>
+            <a>اعدادات الموقع</a>
           </li>
         </ul>
       </li>

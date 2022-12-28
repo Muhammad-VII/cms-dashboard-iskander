@@ -1,0 +1,16 @@
+<div class="language-update-section">
+  <header class="border-bottom mb-3 pb-0">
+    <h3>Language settings</h3>
+  </header>
+
+  <div class="w-100 d-flex justify-content-between" *ngFor="let lang of langs">
+    <div>
+      <h5>{{lang.name}}</h5>
+    </div>
+    <div>
+      <nz-switch [ngModel]="!lang.hidden" [nzControl]="true" (click)="publish(lang, lang.hidden ? false : true)">
+      </nz-switch>
+    </div>
+  </div>
+
+</div>
