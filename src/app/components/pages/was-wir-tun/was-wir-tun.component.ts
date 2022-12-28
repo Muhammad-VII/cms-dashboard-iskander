@@ -218,7 +218,6 @@ export class WasWirTunComponent {
         next: (res) => {
           this._NgxSpinnerService.hide();
           this._ToastrService.success('The section has been updated');
-          console.log(res);
           this.pageData = res?.data;
         },
         error: (err) => {
