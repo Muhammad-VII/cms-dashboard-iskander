@@ -159,10 +159,9 @@ export class ContactPageComponent implements OnDestroy {
       })
       .subscribe({
         next: (res) => {
-          window.location.reload();
+          $('.modal').modal('hide');
           this._NgxSpinnerService.hide();
           this._ToastrService.success('The section has been updated');
-          $('#editModal').modal('hide');
         },
         error: (err) => {
           this._NgxSpinnerService.hide();
@@ -186,7 +185,7 @@ export class ContactPageComponent implements OnDestroy {
         image: this.editForm.value.image,
         media: mediaArray,
         hidden: this.editForm.value.hidden,
-        dir: this.editForm.value.dir,
+        btnHidden: this.editForm.value.btnHidden,
       })
       .subscribe({
         next: (res) => {
@@ -217,13 +216,13 @@ export class ContactPageComponent implements OnDestroy {
               image: this.editForm.value.image,
               media: mediaArray,
               hidden: this.editForm.value.hidden,
-              dir: this.editForm.value.dir,
+              btnHidden: this.editForm.value.btnHidden,
             })
             .subscribe({
               next: (res) => {
                 this._NgxSpinnerService.hide();
                 this._ToastrService.success('The section has been updated');
-                window.location.reload();
+                $('.modal').modal('hide');
               },
             });
         },
@@ -269,7 +268,7 @@ export class ContactPageComponent implements OnDestroy {
         next: (res) => {
           this._NgxSpinnerService.hide();
           this._ToastrService.success('The section has been updated');
-          window.location.reload();
+          $('.modal').modal('hide');
         },
       })
     )
@@ -288,13 +287,13 @@ export class ContactPageComponent implements OnDestroy {
         image: this.editForm.value.image,
         media: mediaArray,
         hidden: this.editForm.value.hidden,
-        btnHidden: this.editForm.value.dir,
+        btnHidden: this.editForm.value.btnHidden,
       })
       .subscribe({
         next: (res) => {
           this._NgxSpinnerService.hide();
           this._ToastrService.success('The section has been updated');
-          window.location.reload();
+          $('.modal').modal('hide')
         },
         error: (err) => {
           this._NgxSpinnerService.hide();

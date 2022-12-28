@@ -45,7 +45,6 @@ export class WasWirSindComponent implements OnDestroy {
   });
 
   constructor(
-    private _AuthService: AuthService,
     private _DashboardService: DashboardService,
     private _NgxSpinnerService: NgxSpinnerService,
     private _ToastrService: ToastrService
@@ -159,10 +158,10 @@ export class WasWirSindComponent implements OnDestroy {
       })
       .subscribe({
         next: (res) => {
-          window.location.reload();
+          this.pageData = res.data;
           this._NgxSpinnerService.hide();
           this._ToastrService.success('The section has been updated');
-          $('#editModal').modal('hide');
+          $('.modal').modal('hide');
         },
         error: (err) => {
           this._NgxSpinnerService.hide();
@@ -186,7 +185,7 @@ export class WasWirSindComponent implements OnDestroy {
         image: this.editForm.value.image,
         media: mediaArray,
         hidden: this.editForm.value.hidden,
-        dir: this.editForm.value.dir,
+        btnHidden: this.editForm.value.btnHidden,
       })
       .subscribe({
         next: (res) => {
@@ -217,13 +216,14 @@ export class WasWirSindComponent implements OnDestroy {
               image: this.editForm.value.image,
               media: mediaArray,
               hidden: this.editForm.value.hidden,
-              dir: this.editForm.value.dir,
+              btnHidden: this.editForm.value.btnHidden,
             })
             .subscribe({
               next: (res) => {
                 this._NgxSpinnerService.hide();
                 this._ToastrService.success('The section has been updated');
-                window.location.reload();
+                $('.modal').modal('hide');
+
               },
             });
         },
@@ -269,7 +269,7 @@ export class WasWirSindComponent implements OnDestroy {
         next: (res) => {
           this._NgxSpinnerService.hide();
           this._ToastrService.success('The section has been updated');
-          window.location.reload();
+          $('.modal').modal('hide');
         },
       })
     )
@@ -288,13 +288,13 @@ export class WasWirSindComponent implements OnDestroy {
         image: this.editForm.value.image,
         media: mediaArray,
         hidden: this.editForm.value.hidden,
-        btnHidden: this.editForm.value.dir,
+        btnHidden: this.editForm.value.btnHidden,
       })
       .subscribe({
         next: (res) => {
           this._NgxSpinnerService.hide();
           this._ToastrService.success('The section has been updated');
-          window.location.reload();
+          $('.modal').modal('hide');
         },
         error: (err) => {
           this._NgxSpinnerService.hide();

@@ -1,6 +1,6 @@
 import { Subscription, Observable, map } from 'rxjs';
 import { DashboardService } from 'src/app/services/dashboard.service';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-kontakt',
@@ -8,7 +8,10 @@ import { Component, OnDestroy } from '@angular/core';
   styleUrls: ['./kontakt.component.scss'],
 })
 export class KontaktComponent implements OnDestroy {
-  constructor(private _DashboardService: DashboardService) {}
+  constructor(private _DashboardService: DashboardService) {
+    
+  }
+
   subscribtions: Subscription[] = [];
   messages$: Observable<any> = this._DashboardService.getContactMessages().pipe(
     map((results: any) => {

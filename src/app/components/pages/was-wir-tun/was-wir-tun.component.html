@@ -1,6 +1,15 @@
 <header>
-  <h2 *ngIf="lang == 'due' || lang == 'en'">Was wir tun</h2>
-  <h2 *ngIf="lang == 'ar'" style="text-align: right;">ما نقوم به</h2>
+  <div class="page-title">
+    <h2 *ngIf="lang == 'due' || lang == 'en'">Was wir tun</h2>
+    <h2 *ngIf="lang == 'ar'" style="text-align: right;">ما نقوم به</h2>
+  </div>
+  <div>
+    <div class="add-new-service">
+      <button class="border-0 bg-transparent btn" data-bs-toggle="modal" data-bs-target="#addNewServiceModal">
+        <i class="bi bi-plus-square"></i>
+      </button>
+    </div>
+  </div>
 </header>
 
 <article>
@@ -20,6 +29,10 @@
         </div>
 
         <div>
+          <button class="border-0 bg-transparent btn text-danger" (click)="deleteService(content._id, content.image)">
+            <i class="bi bi-x-lg"></i>
+          </button>
+
           <button class="border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#exampleModal"
             [attr.data-bs-target]="'#'+'ed'+content._id" data- (click)="patchValuesToEditForm(content)">
             <img src="assets/icons/edit.png" alt="" srcset="">
@@ -201,4 +214,56 @@
       </div>
     </div>
   </div>
+</div>
+
+<div data-bs-backdrop="static" data-bs-keyboard="false" class="modal fade" id="addNewServiceModal" tabindex="-1"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 *ngIf="lang=='en'" class="modal-title">Add New Service</h5>
+      <h5 *ngIf="lang=='due'" class="modal-title">Neuen Dienst hinzufügen</h5>
+      <h5 *ngIf="lang=='ar'" class="modal-title">أضف خدمة جديدة</h5>
+    </div>
+    <div class="modal-body">
+      <form class="row g-3" [formGroup]="addNewServiceForm">
+        <div class="col-12">
+          <label for="inputAddress" class="form-label" *ngIf="lang == 'due' || lang == 'en'">Title</label>
+          <label for="inputAddress" class="form-label" *ngIf="lang == 'ar'">العنوان</label>
+          <input type="text" class="form-control" class="form-control" formControlName="title">
+        </div>
+
+        <div class="col-12">
+          <label for="inputAddress" class="form-label" *ngIf="lang == 'due' || lang == 'en'">Sub title</label>
+          <label for="inputAddress" class="form-label" *ngIf="lang == 'ar'">العنوان الفرعي</label>
+          <input type="text" class="form-control" class="form-control" formControlName="subTitle">
+        </div>
+
+        <div class="col-12">
+          <label for="inputAddress" class="form-label" *ngIf="lang == 'due' || lang == 'en'">Extra title</label>
+          <label for="inputAddress" class="form-label" *ngIf="lang == 'ar'">العنوان الاضافي</label>
+          <input type="text" class="form-control" class="form-control" formControlName="extraTitle">
+        </div>
+
+        <div class="col-12">
+          <label for="inputAddress" class="form-label" *ngIf="lang == 'due' || lang == 'en'">Description</label>
+          <label for="inputAddress" class="form-label" *ngIf="lang == 'ar'">التفاصيل</label>
+          <textarea type="text" class="form-control" class="form-control" formControlName="description" rows="4"></textarea>
+        </div>
+
+        <div class="col-12">
+          <label for="inputAddress" class="form-label" *ngIf="lang == 'due' || lang == 'en'">Image</label>
+          <label for="inputAddress" class="form-label" *ngIf="lang == 'ar'">الصورة</label>
+          <input type="file" class="form-control" (change)="uploadimage($event, 'addService')">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer" [class.justify-content-start]="lang == 'ar'">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" *ngIf="lang == 'due' || lang == 'en'">Close</button>
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" *ngIf="lang == 'ar'">غلق</button>
+      <button type="button" class="btn btn-primary" (click)="submitAddNewServiceForm()" [disabled]="!uploadLoading" *ngIf="lang == 'due' || lang == 'en'">Save changes</button>
+      <button type="button" class="btn btn-primary" (click)="submitAddNewServiceForm()" [disabled]="!uploadLoading" *ngIf="lang == 'ar'">حفظ التعديلات</button>
+    </div>
+  </div>
+</div>
 </div>

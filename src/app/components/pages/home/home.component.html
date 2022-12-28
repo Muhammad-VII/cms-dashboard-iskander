@@ -20,9 +20,12 @@
         </div>
 
         <div>
-          <button class="border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#exampleModal"
+          <button *ngIf="content._id == '63a75c740cbb0d2017af9ff9'" class="border-0 bg-transparent" [routerLink]="['/dashboard/was-wir-tun']">
+            <img src="assets/icons/edit.png" alt="edit_icon">
+          </button>
+          <button *ngIf="content._id != '63a75c740cbb0d2017af9ff9'" class="border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#exampleModal"
             [attr.data-bs-target]="'#'+'ed'+content._id" data- (click)="patchValuesToEditForm(content)">
-            <img src="assets/icons/edit.png" alt="" srcset="">
+            <img src="assets/icons/edit.png" alt="edit_icon">
           </button>
         </div>
       </div>
@@ -33,18 +36,18 @@
         <div [class.col-md-12]="content.media.length > 0" [class.col-md-9]="content.media.length <= 0">
           <h4 *ngIf="lang == 'due' || lang == 'en'"><small>Title:</small> {{content.title}}</h4>
           <h4 *ngIf="lang == 'ar'" style="text-align: right;"><small>العنوان:</small> {{content.title}}</h4>
-          <p class="mb-1" *ngIf="lang == 'due' || lang == 'en'"><small>Sub title:</small> {{content.subTitle}}</p>
-          <p class="mb-1" *ngIf="lang == 'ar'" style="text-align: right;"><small>العنوان الفرعي:</small> {{content.subTitle}}</p>
-          <p class="mb-1" *ngIf="lang == 'due' || lang == 'en'"><small>Extra title:</small> {{content.extraTitle}}</p>
-          <p class="mb-1" *ngIf="lang == 'ar'" style="text-align: right;"><small>عنوان اضافي:</small> {{content.extraTitle}}</p>
-          <p *ngIf="lang == 'due' || lang == 'en'"><small>Description:</small> {{content.description}}</p>
-          <p *ngIf="lang == 'ar'" style="text-align: right;"><small>تفاصيل:</small> {{content.description}}</p>
+          <p class="mb-1" *ngIf="lang == 'due' || lang == 'en'"><small *ngIf="content.subTitle != ''">Sub title:</small> {{content.subTitle}}</p>
+          <p class="mb-1" *ngIf="lang == 'ar'" style="text-align: right;"><small *ngIf="content.subTitle != ''">العنوان الفرعي:</small> {{content.subTitle}}</p>
+          <p class="mb-1" *ngIf="lang == 'due' || lang == 'en'"><small *ngIf="content.extraTitle != ''">Extra title:</small> {{content.extraTitle}}</p>
+          <p class="mb-1" *ngIf="lang == 'ar'" style="text-align: right;"><small *ngIf="content.extraTitle != ''">عنوان اضافي:</small> {{content.extraTitle}}</p>
+          <p *ngIf="lang == 'due' || lang == 'en'"><small *ngIf="content.description != ''">Description:</small> {{content.description}}</p>
+          <p *ngIf="lang == 'ar'" style="text-align: right;"><small *ngIf="content.description != ''">تفاصيل:</small> {{content.description}}</p>
           <div class="media-row" *ngIf="content.media.length != 0">
             <div class="row">
-              <div class="col-md-4" *ngFor="let media of content.media">
+              <!-- <div class="col-md-4" *ngFor="let media of content.media">
                 <img class="w-100 mb-2" [src]="media.image" alt="" srcset="">
                 <p>{{media.title}}</p>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -92,7 +95,7 @@
                 <label for="inputAddress2" class="form-label" *ngIf="lang == 'ar'">الصور</label>
                 <input (change)="uploadimage($event, 'data')" type="file" class="form-control">
               </div>
-              <div class="col-12" *ngIf="content.media.length != 0">
+              <!-- <div class="col-12" *ngIf="content.media.length != 0">
                 <label class="form-label" *ngIf="lang == 'due' || lang == 'en'">Media</label>
                 <label class="form-label" *ngIf="lang == 'ar'">الصور</label>
                 <div class="row">
@@ -109,7 +112,7 @@
                   </div>
                   <button *ngIf="lang == 'due' || lang == 'en'" class="btn btn-outline-success mt-2" data-bs-target="#addNewMedia" data-bs-toggle="modal">Add new media</button>
                 </div>
-              </div>
+              </div> -->
             </form>
           </div>
           <div class="modal-footer" [class.justify-content-start]="lang == 'ar'">

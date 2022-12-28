@@ -6,6 +6,8 @@ import {
   uploadBytes,
   getDownloadURL,
   Storage,
+  deleteObject,
+  list
 } from '@angular/fire/storage';
 import { Observable, from, switchMap, catchError } from 'rxjs';
 @Injectable({
@@ -111,6 +113,29 @@ export class DashboardService {
     );
   }
 
+  addNewService(data: any): Observable<any> {
+    return this._HttpClient.post(
+      `https://ng-cms-dashboard.herokuapp.com/war-wir-tun/addSection-${this.lang}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')!}`,
+        },
+      }
+    );
+  }
+
+  deleteService(id: string): Observable<any> {
+    return this._HttpClient.delete(
+      `https://ng-cms-dashboard.herokuapp.com/war-wir-tun/deleteSectionById-${this.lang}/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')!}`,
+        },
+      } 
+    );
+  }
+
   updateWasWirSind(id: string, data: any): Observable<any> {
     return this._HttpClient.patch(
       `https://ng-cms-dashboard.herokuapp.com/war-wir-sind/updateSectionById-${this.lang}/${id}`,
@@ -139,6 +164,11 @@ export class DashboardService {
     const storageRef = ref(this.storage, path);
     const uploadTask = from(uploadBytes(storageRef, image));
     return uploadTask.pipe(switchMap((result) => getDownloadURL(result.ref)));
+  }
+
+  deleteImage(path: string): Observable<any> {
+    const storageRef = ref(this.storage, path);
+    return from(deleteObject(storageRef));
   }
 
   getContactMessages(): Observable<any> {

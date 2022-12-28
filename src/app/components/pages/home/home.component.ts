@@ -79,7 +79,7 @@ export class HomeComponent implements OnDestroy {
         image: obj.image,
         media: obj.media,
         hidden: publishState,
-        dir: obj.dir,
+        btnHidden: obj.btnHidden,
       })
       .subscribe({
         next: (res) => {
@@ -153,14 +153,14 @@ export class HomeComponent implements OnDestroy {
         image: this.editForm.value.image,
         media: this.editForm.value.media,
         hidden: this.editForm.value.hidden,
-        dir: this.editForm.value.dir,
+        btnHidden: this.editForm.value.btnHidden,
       })
       .subscribe({
         next: (res) => {
-          window.location.reload();
           this._NgxSpinnerService.hide();
           this._ToastrService.success('The section has been updated');
-          $('#editModal').modal('hide');
+          $('.modal').modal('hide');
+          this.pageData = res.data;
         },
         error: (err) => {
           this._NgxSpinnerService.hide();
@@ -170,7 +170,6 @@ export class HomeComponent implements OnDestroy {
   }
 
   deleteImageFromMedia(index: number) {
-    // this._NgxSpinnerService.show();
     const mediaArray = this.editForm.value.media;
     mediaArray.splice(index, 1);
     this._DashboardService
@@ -182,13 +181,12 @@ export class HomeComponent implements OnDestroy {
         image: this.editForm.value.image,
         media: mediaArray,
         hidden: this.editForm.value.hidden,
-        dir: this.editForm.value.dir,
+        btnHidden: this.editForm.value.btnHidden,
       })
       .subscribe({
         next: (res) => {
-          // this._NgxSpinnerService.hide();
           this._ToastrService.success('The section has been updated');
-          window.location.reload();
+          $('.modal').modal('hide');
         },
       });
   }
@@ -212,13 +210,13 @@ export class HomeComponent implements OnDestroy {
               image: this.editForm.value.image,
               media: mediaArray,
               hidden: this.editForm.value.hidden,
-              dir: this.editForm.value.dir,
+              btnHidden: this.editForm.value.btnHidden,
             })
             .subscribe({
               next: (res) => {
                 this._NgxSpinnerService.hide();
                 this._ToastrService.success('The section has been updated');
-                window.location.reload();
+                $('.modal').modal('hide');
               },
             });
         },
@@ -263,7 +261,7 @@ export class HomeComponent implements OnDestroy {
         next: (res) => {
           this._NgxSpinnerService.hide();
           this._ToastrService.success('The section has been updated');
-          window.location.reload();
+          $('.modal').modal('hide');
         },
       });
   }
@@ -281,13 +279,13 @@ export class HomeComponent implements OnDestroy {
         image: this.editForm.value.image,
         media: mediaArray,
         hidden: this.editForm.value.hidden,
-        btnHidden: this.editForm.value.dir,
+        btnHidden: this.editForm.value.btnHidden,
       })
       .subscribe({
         next: (res) => {
           this._NgxSpinnerService.hide();
           this._ToastrService.success('The section has been updated');
-          window.location.reload();
+          $('.modal').modal('hide');
         },
         error: (err) => {
           this._NgxSpinnerService.hide();

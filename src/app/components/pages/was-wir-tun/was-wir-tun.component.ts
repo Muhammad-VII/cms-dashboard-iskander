@@ -2,14 +2,14 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { DashboardService } from './../../../services/dashboard.service';
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { of, Subscription, switchMap, tap } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 declare const $: any;
 @Component({
   selector: 'app-was-wir-tun',
   templateUrl: './was-wir-tun.component.html',
-  styleUrls: ['./was-wir-tun.component.scss']
+  styleUrls: ['./was-wir-tun.component.scss'],
 })
 export class WasWirTunComponent {
   subscribtions: Subscription[] = [];
@@ -27,7 +27,18 @@ export class WasWirTunComponent {
     image: new FormControl(''),
     media: new FormControl(''),
     hidden: new FormControl(''),
-    btnHidden: new FormControl(''),
+    btnHidden: new FormControl('')
+  });
+
+  addNewServiceForm: FormGroup = new FormGroup({
+    title: new FormControl(''),
+    subTitle: new FormControl(''),
+    extraTitle: new FormControl(''),
+    description: new FormControl(''),
+    image: new FormControl(''),
+    media: new FormControl([]),
+    hidden: new FormControl(false),
+    btnHidden: new FormControl(false)
   });
 
   editMediaForm: FormGroup = new FormGroup({
@@ -55,7 +66,7 @@ export class WasWirTunComponent {
         next: (res) => {
           this._NgxSpinnerService.hide();
           this.pageData = res.data;
-          console.log(res.data);
+          this.addNewServiceForm.getRawValue()
         },
         error: (err) => {
           this._NgxSpinnerService.hide();
@@ -76,7 +87,7 @@ export class WasWirTunComponent {
         image: obj.image,
         media: obj.media,
         hidden: publishState,
-        dir: obj.dir,
+        btnHidden: obj.btnHidden,
       })
       .subscribe({
         next: (res) => {
@@ -118,16 +129,23 @@ export class WasWirTunComponent {
             this.editForm.patchValue({
               image: val,
             });
+            this.uploadLoading = true;
           } else if (type === 'media') {
             this.editMediaForm.patchValue({
               image: val,
             });
+            this.uploadLoading = true;
           } else if (type === 'addMedia') {
             this.addMediaForm.patchValue({
               image: val,
             });
+            this.uploadLoading = true;
+          } else if (type === 'addService') {
+            this.addNewServiceForm.patchValue({
+              image: val,
+            });
+            this.uploadLoading = true;
           }
-          this.uploadLoading = true;
         },
         error: (err) => {
           this.uploadLoading = true;
@@ -150,20 +168,65 @@ export class WasWirTunComponent {
         image: this.editForm.value.image,
         media: this.editForm.value.media,
         hidden: this.editForm.value.hidden,
-        dir: this.editForm.value.dir,
+        btnHidden: this.editForm.value.btnHidden,
       })
       .subscribe({
         next: (res) => {
-          window.location.reload();
+          $('.modal').modal('hide');
           this._NgxSpinnerService.hide();
           this._ToastrService.success('The section has been updated');
-          $('#editModal').modal('hide');
+          this.pageData = res.data;
         },
         error: (err) => {
           this._NgxSpinnerService.hide();
           this._ToastrService.error('An error has occured');
         },
       });
+  }
+
+  submitAddNewServiceForm() {
+    this._NgxSpinnerService.show();
+    this.subscribtions.push(
+      this._DashboardService
+        .addNewService(this.addNewServiceForm.value)
+        .subscribe({
+          next: (res) => {
+            $('.modal').modal('hide');
+            this._NgxSpinnerService.hide();
+            this._ToastrService.success('The section has been updated');
+            this.pageData = res.data;
+          },
+          error: (err) => {
+            this._NgxSpinnerService.hide();
+            this._ToastrService.error('An error has occured');
+          },
+        })
+    );
+  }
+
+  deleteService(id: string, imagePath: string) {
+    this._NgxSpinnerService.show();
+    this.subscribtions.push(
+      this._DashboardService.deleteService(id).pipe(
+        tap(() => {
+          try {
+            this._DashboardService.deleteImage(imagePath).subscribe()
+          } catch (error) {
+          }
+        })
+      ).subscribe({
+        next: (res) => {
+          this._NgxSpinnerService.hide();
+          this._ToastrService.success('The section has been updated');
+          console.log(res);
+          this.pageData = res?.data;
+        },
+        error: (err) => {
+          this._NgxSpinnerService.hide();
+          this._ToastrService.error('An error has occured');
+        },
+      })
+    );
   }
 
   deleteImageFromMedia(index: number) {
@@ -179,7 +242,7 @@ export class WasWirTunComponent {
         image: this.editForm.value.image,
         media: mediaArray,
         hidden: this.editForm.value.hidden,
-        dir: this.editForm.value.dir,
+        btnHidden: this.editForm.value.btnHidden,
       })
       .subscribe({
         next: (res) => {
@@ -208,13 +271,13 @@ export class WasWirTunComponent {
               image: this.editForm.value.image,
               media: mediaArray,
               hidden: this.editForm.value.hidden,
-              dir: this.editForm.value.dir,
+              btnHidden: this.editForm.value.btnHidden,
             })
             .subscribe({
               next: (res) => {
                 this._NgxSpinnerService.hide();
                 this._ToastrService.success('The section has been updated');
-                window.location.reload();
+                $('.modal').modal('hide');
               },
             });
         },
@@ -258,7 +321,7 @@ export class WasWirTunComponent {
         next: (res) => {
           this._NgxSpinnerService.hide();
           this._ToastrService.success('The section has been updated');
-          window.location.reload();
+          $('.modal').modal('hide');
         },
       });
   }
@@ -276,18 +339,18 @@ export class WasWirTunComponent {
         image: this.editForm.value.image,
         media: mediaArray,
         hidden: this.editForm.value.hidden,
-        btnHidden: this.editForm.value.dir,
+        btnHidden: this.editForm.value.btnHidden,
       })
       .subscribe({
         next: (res) => {
           this._NgxSpinnerService.hide();
           this._ToastrService.success('The section has been updated');
-          window.location.reload();
+          $('.modal').modal('hide');
         },
         error: (err) => {
           this._NgxSpinnerService.hide();
           this._ToastrService.error('An error has occured');
-        }
+        },
       });
   }
 
