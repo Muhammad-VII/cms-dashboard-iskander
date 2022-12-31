@@ -16,8 +16,8 @@
           <p>Message: {{message?.message}}</p>
         </div>
         <div class="d-flex gap-2">
-          <button class="btn btn-outline-danger py-1 px-4 rounded-1" (click)="deleteMessage(message._id)">Delete</button>
-          <a href="mailto:{{message.email}}" target="_blank" class="btn btn-outline-secondary py-1 px-4 rounded-1">Inbox</a>
+          <button style="background-color: #DC3545;" class="btn py-1 px-4 rounded-1 text-light" (click)="deleteMessage(message._id)">Delete</button>
+          <a href="mailto:{{message.email}}" target="_blank" style="background-color: #062C7F;" class="btn text-light py-1 px-4 rounded-1">Go to mailbox</a>
         </div>
       </div>
     </div>

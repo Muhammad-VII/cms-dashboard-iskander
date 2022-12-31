@@ -45,14 +45,6 @@
             {{content.description}}</p>
           <p *ngIf="lang == 'ar'" style="text-align: right;"><small *ngIf="content.description != ''">تفاصيل:</small>
             {{content.description}}</p>
-          <div class="media-row text-center" *ngIf="content.media.length != 0">
-            <div class="row">
-              <div class="col-md-4" *ngFor="let media of content.media">
-                <img class="mb-2 w-100" [src]="media.image" alt="" srcset="">
-                <p>{{media.title}}</p>
-              </div>
-            </div>
-          </div>
         </div>
         <div class="col-md-3" [hidden]="content.media.length > 0">
           <img src="{{content.image}}" class="w-100" alt="" srcset="">
@@ -103,12 +95,12 @@
               <div class="col-12" *ngIf="content.media.length != 0">
                 <header class="d-flex justify-content-between align-items-center border-0 p-0 m-0 mb-2">
                   <div>
-                    <label class="form-label" *ngIf="lang == 'due' || lang == 'en'">Media</label>
+                    <label class="form-label" *ngIf="lang == 'due' || lang == 'en'">Partners</label>
                     <label class="form-label" *ngIf="lang == 'ar'">الصور</label>
                   </div>
                   <div>
                     <button *ngIf="lang == 'due' || lang == 'en'" class="btn btn-info mt-2"
-                    data-bs-target="#addNewMedia" data-bs-toggle="modal">Add new media</button>
+                    data-bs-target="#addNewMedia" data-bs-toggle="modal">Add new partner</button>
                   </div>
                 </header>
                 <div class="row">
@@ -117,15 +109,15 @@
                       <img src="{{media.image}}" width="239px.33" height="268.91px">
                       <input disabled class="form-control" type="text" placeholder="{{media.title}}">
                       <div class="d-flex justify-content-between">
-                        <button *ngIf="lang == 'due' || lang == 'en'" class="btn btn-warning rounded-0"
+                        <button *ngIf="lang == 'due' || lang == 'en'" style="background-color: #062C7F;" class="btn text-light rounded-0"
                           data-bs-target="#mediaEditModal" data-bs-toggle="modal"
                           (click)="editMedia(media, i)">Edit</button>
-                        <button *ngIf="lang == 'ar'" class="btn btn-warning rounded-0" data-bs-target="#mediaEditModal"
+                        <button *ngIf="lang == 'ar'" style="background-color: #062C7F;" class="btn text-light rounded-0" data-bs-target="#mediaEditModal"
                           data-bs-toggle="modal" (click)="editMedia(media, i)">تعديل</button>
                         <input type="file" (change)="uploadMedia($event, i)" hidden #mediaUpload>
-                        <button *ngIf="lang == 'due' || lang == 'en'" class="btn btn-danger rounded-0"
+                        <button *ngIf="lang == 'due' || lang == 'en'" style="background-color: #DC3545;" class="btn text-light rounded-0"
                           (click)="deleteImageFromMedia(i)">Delete</button>
-                        <button *ngIf="lang == 'ar'" class="btn btn-danger rounded-0"
+                        <button *ngIf="lang == 'ar'" style="background-color: #DC3545;" class="btn text-light rounded-0"
                           (click)="deleteImageFromMedia(i)">مسح</button>
                       </div>
                     </div>
@@ -192,7 +184,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Add new media</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add new partner</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
