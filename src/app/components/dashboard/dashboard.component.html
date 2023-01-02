@@ -1,5 +1,5 @@
 <nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar"
+  <nz-sider class="menu-sidebar position-relative"
             nzCollapsible
             nzWidth="256px"
             nzBreakpoint="md"
@@ -131,6 +131,9 @@
         </ul>
       </li>
     </ul>
+    <div class="logout">
+      <button class="btn" (click)="logout()">Logout <i class="bi bi-door-closed"></i></button>
+    </div>
   </nz-sider>
   <nz-layout>
     <nz-header>

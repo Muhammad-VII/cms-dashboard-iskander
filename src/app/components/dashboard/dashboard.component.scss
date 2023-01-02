@@ -79,3 +79,20 @@ nz-content {
   overflow: auto;
   white-space: normal;
 }
+
+.logout {
+  position: absolute;
+  left: 10%;
+  bottom: 2%;
+  button {
+    background-color: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.575);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all .3s;
+    &:hover {
+      color: #fff;
+    }
+  }
+}

@@ -15,4 +15,8 @@ export class DashboardComponent {
     localStorage.setItem('lang', lang);
     window.location.reload();
   }
+
+  logout(): void {
+    this._AuthService.logout();
+  }
 }
