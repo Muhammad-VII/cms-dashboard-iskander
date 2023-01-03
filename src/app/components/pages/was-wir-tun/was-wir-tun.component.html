@@ -5,8 +5,8 @@
   </div>
   <div>
     <div class="add-new-service">
-      <button class="border-0 bg-transparent btn" data-bs-toggle="modal" data-bs-target="#addNewServiceModal">
-        <i class="bi bi-plus-square"></i>
+      <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addNewServiceModal">
+        Add new service
       </button>
     </div>
   </div>
@@ -30,7 +30,8 @@
 
         <div>
           <button class="border-0 bg-transparent btn text-danger" (click)="deleteService(content._id, content.image)">
-            <i class="bi bi-x-lg"></i>
+            Delete
+            <i class="bi bi-trash"></i>
           </button>
 
           <button class="border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#exampleModal"
