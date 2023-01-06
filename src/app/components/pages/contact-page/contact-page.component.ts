@@ -33,6 +33,7 @@ export class ContactPageComponent implements OnDestroy {
   editMediaForm: FormGroup = new FormGroup({
     title: new FormControl(''),
     subTitle: new FormControl(''),
+    extraTitle: new FormControl(''),
     image: new FormControl(''),
     description: new FormControl(''),
   });
@@ -238,6 +239,7 @@ export class ContactPageComponent implements OnDestroy {
       title: obj.title,
       subTitle: obj.subTitle,
       description: obj.description,
+      extraTitle: obj.extraTitle,
       image: obj.image,
     });
     this.mediaIndex = index;
