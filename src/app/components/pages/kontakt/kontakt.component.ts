@@ -13,39 +13,39 @@ export class KontaktComponent implements OnDestroy {
   }
 
   subscribtions: Subscription[] = [];
-  messages$: Observable<any> = this._DashboardService.getContactMessages().pipe(
-    map((results: any) => {
-      return results.data;
-    })
-  );
+  // messages$: Observable<any> = this._DashboardService.getContactMessages().pipe(
+  //   map((results: any) => {
+  //     return results.data;
+  //   })
+  // );
 
-  deleteAllMessages(): void {
-    this.subscribtions.push(
-      this._DashboardService.deleteAllMessages().subscribe((results: any) => {
-        if (results.message == 'All messages deleted successfully') {
-          this.messages$ = this._DashboardService.getContactMessages().pipe(
-            map((results: any) => {
-              return results.data;
-            })
-          );
-        }
-      })
-    );
-  }
+  // deleteAllMessages(): void {
+  //   this.subscribtions.push(
+  //     this._DashboardService.deleteAllMessages().subscribe((results: any) => {
+  //       if (results.message == 'All messages deleted successfully') {
+  //         this.messages$ = this._DashboardService.getContactMessages().pipe(
+  //           map((results: any) => {
+  //             return results.data;
+  //           })
+  //         );
+  //       }
+  //     })
+  //   );
+  // }
 
-  deleteMessage(id: string): void {
-    this.subscribtions.push(
-      this._DashboardService.deleteMessage(id).subscribe((results: any) => {
-        if (results.message == 'success') {
-          this.messages$ = this._DashboardService.getContactMessages().pipe(
-            map((results: any) => {
-              return results.data;
-            })
-          );
-        }
-      })
-    );
-  }
+  // deleteMessage(id: string): void {
+  //   this.subscribtions.push(
+  //     this._DashboardService.deleteMessage(id).subscribe((results: any) => {
+  //       if (results.message == 'success') {
+  //         this.messages$ = this._DashboardService.getContactMessages().pipe(
+  //           map((results: any) => {
+  //             return results.data;
+  //           })
+  //         );
+  //       }
+  //     })
+  //   );
+  // }
 
   ngOnDestroy(): void {
     this.subscribtions.forEach((sub) => sub.unsubscribe());
