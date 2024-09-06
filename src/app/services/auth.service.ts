@@ -8,6 +8,7 @@ import {
   timeout,
 } from 'rxjs';
 import jwtDecode from 'jwt-decode';
+import { environments } from '../environments/environments';
 @Injectable({
   providedIn: 'root',
 })
@@ -35,7 +36,7 @@ export class AuthService {
   }
 
   login(data: { email: string; password: string }) {
-    return this._HttpClient.post('https://ng-cms-dashboard.herokuapp.com/login', data).pipe(
+    return this._HttpClient.post(`${environments.API_URL}/login`, data).pipe(
       catchError((err) => {
         return throwError(() => new Error(err));
       }),
